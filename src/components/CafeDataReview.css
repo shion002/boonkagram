@@ -1,0 +1,172 @@
+.cafedataview-intro-reviewbox-reviewlist {
+  margin: 40px 0;
+}
+.cafedataview-intro-reviewbox-sortbox {
+  display: flex;
+  gap: 15px;
+  margin: 25px 0;
+}
+
+.cafedataview-intro-reviewbox-sortbox > div {
+  background-color: #eee;
+  padding: 5px 10px;
+  font-size: 14px;
+  border-radius: 5px;
+  color: #8a8a8a;
+  cursor: pointer;
+  border: 1px solid #eeeeee;
+}
+
+.cafedataview-intro-reviewbox-sortbox > div.active {
+  color: #69422c;
+  border: 1px solid #69422c;
+}
+
+.cafedataview-intro-reviewbox-reviewlist > li {
+  border: 1px solid rgb(230, 230, 230);
+  padding: 20px 30px;
+  border-radius: 5px;
+  margin: 30px 0;
+}
+.cafedataview-intro-reviewbox-reviewlist-profile {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.cafedataview-intro-reviewbox-reviewlist-profile-imgbox {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.cafedataview-intro-reviewbox-reviewlist-profile-imgbox img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  overflow-clip-margin: unset;
+}
+.cafedataview-intro-reviewbox-reviewlist-profile-info-data {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.cafedataview-intro-reviewbox-reviewlist-profile-info-data-line {
+  width: 1px;
+  height: 0.8em;
+  background-color: #ddd;
+}
+
+.cafedataview-intro-reviewbox-reviewlist-profile-info-data p {
+  font-size: 12px;
+  margin-top: 5px;
+}
+.cafedataview-intro-reviewbox-reviewlist-imgbox {
+  margin: 30px 0;
+}
+
+.cafedataview-intro-reviewbox-reviewlist-imgbox-listbox {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 2fr));
+  row-gap: 8px;
+  column-gap: 8px;
+  padding: 0 20px;
+}
+
+.cafedataview-intro-reviewbox-reviewlist-imgbox-listbox > li {
+  height: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.cafedataview-intro-reviewbox-reviewlist-imgbox-listbox > li > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  overflow-clip-margin: unset;
+}
+
+.cafedataview-intro-reviewbox-reviewlist-datebox-rating {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.cafedataview-intro-reviewbox-reviewlist-datebox-ratingimg {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+.cafedataview-intro-reviewbox-reviewlist-datebox-ratingscore {
+  color: rgb(185, 88, 88);
+  font-weight: 500;
+}
+.cafedataview-intro-reviewbox-reviewlist-datebox-ratingimg img {
+  width: 18px;
+  display: block;
+}
+.cafedataview-intro-reviewbox-reviewlist-datebox-details {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.cafedataview-intro-reviewbox-reviewlist-datebox-details-score {
+  display: flex;
+  gap: 6px;
+}
+
+.cafedataview-intro-reviewbox-reviewlist-datebox-details-score > p {
+  font-size: 12px;
+}
+.cafedataview-intro-reviewbox-reviewlist-datebox-details-score > p:first-child {
+  color: #666;
+}
+.cafedataview-intro-reviewbox-reviewlist-datebox-details-score > p:last-child {
+  font-weight: 500;
+}
+.cafedataview-intro-reviewbox-reviewlist-datebox-details-line {
+  width: 1px;
+  height: 0.8em;
+  background-color: #ddd;
+}
+.cafedataview-intro-reviewbox-reviewlist-content {
+  padding-top: 30px;
+}
+
+.cafedataview-intro-reviewbox-reviewlist-content-main {
+  font-size: 14px;
+}
+.cafedataview-intro-reviewbox-reviewlist-content-date {
+  margin-top: 50px;
+  margin-bottom: 10px;
+  font-size: 12px;
+  color: #a5a4a4;
+}
+
+.cafedataview-intro-reviewbox-more {
+  width: 100%;
+  text-align: center;
+  padding: 20px 0;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+.cafedataview-intro-reviewbox-more:hover {
+  background-color: #ddd;
+}
+.cafedataview-intro-link {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  padding: 20px;
+  position: sticky;
+  top: 30px;
+  flex-shrink: 0;
+  width: 350px;
+  height: max-content;
+}

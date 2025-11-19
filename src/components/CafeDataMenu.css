@@ -1,0 +1,28 @@
+.cafedataview-intro-menubox {
+  margin: 40px 0;
+}
+
+.cafedataview-intro-menubox-title {
+  font-size: 24px;
+}
+
+.cafedataview-intro-menubox-menulist {
+  padding: 0px 10px;
+  margin-top: 50px;
+}
+
+.cafedataview-intro-menubox-menulist > li {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  margin: 25px 0;
+}
+.cafedataview-intro-menubox-menulist-line {
+  flex: 1;
+  border: 1px dashed rgb(192, 192, 192);
+  height: 1px;
+}
+
+.cafedataview-intro-menubox-menulist > li p {
+  display: flex;
+}

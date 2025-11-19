@@ -1,0 +1,108 @@
+.InforForm {
+  background-color: #f1efef;
+  padding-bottom: 500px;
+}
+.inforform-form {
+  padding: 50px 0;
+}
+.inforform-form-profile-imgbox {
+  width: 120px;
+  height: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  border-radius: 50%;
+  margin: auto;
+}
+.inforform-form-profile-imgbox img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  overflow-clip-margin: unset;
+}
+.inforform-form-profile-editclick {
+  text-align: center;
+  font-size: 14px;
+  margin: 20px;
+  cursor: pointer;
+  color: rgb(89, 89, 224);
+}
+.inforform-form-logbox {
+  background-color: white;
+  max-width: 1000px;
+  margin: auto;
+  border-radius: 15px;
+  padding: 20px;
+}
+.inforform-form-logbox-tabbox {
+  display: flex;
+  border: 1px solid #875a40;
+  width: 350px;
+  margin: 30px auto;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.inforform-form-logbox-tabbox > li {
+  text-align: center;
+  flex: 1;
+  padding: 5px 0px;
+  cursor: pointer;
+}
+.inforform-form-logbox-tabbox > li.active {
+  background-color: #875a40;
+  color: white;
+}
+
+.inforform-form-logbox-list {
+  margin: 40px 0;
+}
+.inforform-form-logbox-list > li {
+  display: flex;
+  width: 85%;
+  margin: auto;
+  border-bottom: 1px solid #e6e4e4;
+  padding: 20px 0;
+  align-items: center;
+  gap: 30px;
+  cursor: pointer;
+}
+.inforform-form-logbox-list-imgbox {
+  width: 200px;
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.inforform-form-logbox-list-imgbox > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  overflow-clip-margin: unset;
+}
+.inforform-form-logbox-list-titlebox > p {
+  padding: 5px 0;
+}
+.inforform-form-logbox-list-titlebox-title {
+  font-weight: 500;
+}
+.inforform-form-logbox-list-titlebox-address {
+  font-size: 14px;
+}
+.inforform-form-logbox-list-more {
+  width: 100%;
+  text-align: center;
+  padding: 20px 0;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: 0.3s;
+  margin-top: 20px;
+}
+
+.inforform-form-logbox-list-more:hover {
+  background-color: #ddd;
+}

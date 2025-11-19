@@ -1,0 +1,82 @@
+.signform-wrap {
+  max-width: 700px;
+  padding: 0 80px;
+  margin: auto;
+}
+.signform-form {
+  margin-top: 50px;
+}
+.signform-form-title {
+  color: #875a40;
+}
+.signform-form-box {
+  margin: 50px 0;
+}
+.signform-form-input {
+  border: none;
+  border-bottom: 1px solid #875a4070;
+  padding: 10px 5px;
+  width: 400px;
+  outline: none;
+  font-size: 16px;
+  transition: 0.2s;
+  color: #422e2e;
+}
+
+.signform-form-input:focus {
+  border-bottom: 1px solid #875a40;
+}
+.signform-form-usernamebox-findcheckbox {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.signform-form-usernamebox-findcheckbox-button {
+  border: 1px solid #875a40;
+  color: #875a40;
+  padding: 10px 12px;
+  font-size: 12px;
+  border-radius: 5px;
+}
+.signform-form-checkstatus {
+  font-size: 12px;
+  margin-top: 10px;
+  display: none;
+}
+.signform-form-checkstatus.active {
+  display: block;
+}
+.signform-form-submitbox-button {
+  background-color: black;
+  color: white;
+  display: block;
+  width: 250px;
+  margin: 80px auto;
+  padding: 20px 0;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.signform-form-submitbox-button:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+.signform-form-phonecheck-button {
+  background-color: #83736a;
+  padding: 10px 20px;
+  color: white;
+}
+.signform-form-box-phonecheckbox {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+.signform-form-phoneinput {
+  border: none;
+  border-bottom: 1px solid #875a4070;
+  background-color: #875a4015;
+  color: #a7a7a7;
+  padding: 10px 5px;
+  width: 100px;
+  outline: none;
+  font-size: 16px;
+}

@@ -1,0 +1,70 @@
+.FirstSection {
+  background-image: url("./../assets/boonka-background-computer.webp");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center 30%;
+  height: 550px;
+  overflow: hidden;
+}
+
+.firstsection-wrap {
+  position: relative;
+  max-width: 1400px;
+  margin: auto;
+  height: 100%;
+  display: flex;
+}
+
+.firstsection-wrap::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("./../assets/boonka-background-computer.webp");
+  background-size: cover;
+  background-position: center 30%;
+  filter: blur(12px);
+  transform: scale(1.05);
+
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 10%,
+    transparent 60%
+  );
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: cover;
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 10%,
+    transparent 60%
+  );
+  mask-repeat: no-repeat;
+  mask-size: cover;
+}
+
+.firstsection-title {
+  position: relative;
+  padding: 0px 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  gap: 25px;
+  color: white;
+}
+
+.firstsection-title h5 {
+  text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+  font-size: 18px;
+}
+
+.firstsection-title h1 {
+  text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+  font-size: 60px;
+}
+
+.firstsection-title h3 {
+  text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+  font-size: 22px;
+}
