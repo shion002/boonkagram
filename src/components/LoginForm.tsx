@@ -1,8 +1,47 @@
 import { useNavigate } from "react-router-dom";
 import "./LoginForm.css";
+import axios from "axios";
+import { useState } from "react";
+
+interface LoginRequest {
+  username: string;
+  password: string;
+}
 
 const LoginForm = () => {
   const nav = useNavigate();
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+  const [usernameValue, setUsernameValue] = useState("");
+  const [passwordValue, setPasswordValue] = useState("");
+
+  const handleLogin = async () => {
+    try {
+      const loginRequest: LoginRequest = {
+        username: usernameValue,
+        password: passwordValue,
+      };
+
+      const res = await axios.post(
+        `${API_BASE_URL}/api/auth/login`,
+        loginRequest,
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        }
+      );
+
+      console.log("로그인 성공", res);
+      window.location.href = "/";
+    } catch (e) {
+      console.error(e);
+    }
+  };
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") {
+      handleLogin();
+    }
+  };
 
   return (
     <section className="LoginForm">
@@ -15,15 +54,28 @@ const LoginForm = () => {
                 className="loginform-loginbox-form-logininput"
                 type="text"
                 placeholder="아이디 입력"
+                onChange={(e) => {
+                  setUsernameValue(e.target.value);
+                }}
+                onKeyPress={handleKeyPress}
               />
               <input
                 className="loginform-loginbox-form-logininput"
                 type="password"
                 placeholder="비밀번호 입력"
+                onChange={(e) => {
+                  setPasswordValue(e.target.value);
+                }}
+                onKeyPress={handleKeyPress}
               />
             </div>
             <div className="loginform-loginbox-form-buttonbox">
-              <button className="loginform-loginbox-form-loginbtn">
+              <button
+                onClick={() => {
+                  handleLogin();
+                }}
+                className="loginform-loginbox-form-loginbtn"
+              >
                 로그인
               </button>
               <button

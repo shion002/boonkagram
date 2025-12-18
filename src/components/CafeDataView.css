@@ -3,11 +3,8 @@
   margin: 40px auto;
   padding: 0 100px;
 }
-
-.cafedataview-titlebox-title {
-  font-size: 28px;
-  color: #493021;
-  margin-top: 30px;
+.cafedataview-search {
+  margin: 40px 0;
 }
 .cafedataview-titlebox-address {
   font-size: 14px;
@@ -25,6 +22,9 @@
   gap: 40px;
   margin-top: 40px;
 }
+.cafedataview-intro-main {
+  flex: 1;
+}
 .cafedataview-intro-textbox {
   background-color: #e7e7e7;
   border-radius: 10px;
@@ -37,6 +37,19 @@
 .cafedataview-intro-textbox-content {
   margin-top: 15px;
   color: #555;
+  font-size: 14px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+.cafedataview-intro-link {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  padding: 20px;
+  position: sticky;
+  top: 30px;
+  flex-shrink: 0;
+  width: 350px;
+  height: max-content;
 }
 
 .cafedataview-intro-link-linklist {
@@ -77,4 +90,49 @@
 .cafedataview-intro-link-button-report {
   color: white;
   background-color: #190e55;
+}
+
+@media (max-width: 990px) {
+  .cafedataview-wrap {
+    padding: 0;
+  }
+  .cafedataview-titlebox {
+    padding: 0 40px;
+  }
+  .cafedataview-titlebox-title {
+    font-size: 18px;
+  }
+  .cafedataview-titlebox-address {
+    font-size: 10px;
+  }
+  .cafedataview-intro {
+    display: block;
+    padding: 0 40px;
+  }
+  .cafedataview-intro-link {
+    box-shadow: none;
+    margin: auto;
+  }
+  .cafedataview-intro-link-button {
+    display: block;
+  }
+  .cafedataview-intro-link-button > button {
+    display: block;
+    border-radius: 0;
+    width: 100%;
+    margin: 10px 0;
+    font-size: 12px;
+  }
+  .cafedataview-intro-link-linklist > li > p {
+    font-size: 12px;
+  }
+  .cafedataview-intro-link-linklist > li > img {
+    width: 16px;
+  }
+  .cafedataview-intro-textbox-title {
+    font-size: 14px;
+  }
+  .cafedataview-intro-textbox-content {
+    font-size: 12px;
+  }
 }

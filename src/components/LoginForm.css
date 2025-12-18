@@ -54,3 +54,26 @@
   margin-top: 30px;
   cursor: pointer;
 }
+
+@media (max-width: 990px) {
+  .loginform-loginbox-form-logininput {
+    width: 100%;
+    font-size: 16px;
+  }
+  .loginform-loginbox {
+    width: 100%;
+  }
+  .loginform-loginbox-title {
+    font-size: 20px;
+  }
+
+  .loginform-loginbox-form-loginbtn {
+    width: 80%;
+    padding: 15px;
+    font-size: 12px;
+  }
+
+  .loginform-loginbox-form-findpassword {
+    font-size: 10px;
+  }
+}

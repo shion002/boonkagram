@@ -39,3 +39,34 @@
 .cafedataview-intro-imgbox-more:hover {
   background-color: #ddd;
 }
+
+.cafedataview-intro-imgbox-nullimg {
+  padding-left: 10px;
+}
+
+@media (max-width: 990px) {
+  .cafedataview-intro-imgbox-more {
+    font-size: 14px;
+  }
+  .cafedataview-intro-imgbox-imglist {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 3fr));
+  }
+  .cafedataview-intro-imgbox-imglist > li {
+    height: 140px;
+  }
+  .cafedataview-intro-imgbox-title {
+    font-size: 18px;
+  }
+  .cafedataview-intro-imgbox-nullimg {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 600px) {
+  .cafedataview-intro-imgbox-imglist {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 3fr));
+  }
+  .cafedataview-intro-imgbox-imglist > li {
+    height: 100px;
+  }
+}

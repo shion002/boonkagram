@@ -6,6 +6,9 @@
   gap: 15px;
   margin: 25px 0;
 }
+.cafedataview-intro-reviewbox-title {
+  font-size: 24px;
+}
 
 .cafedataview-intro-reviewbox-sortbox > div {
   background-color: #eee;
@@ -160,13 +163,54 @@
 .cafedataview-intro-reviewbox-more:hover {
   background-color: #ddd;
 }
-.cafedataview-intro-link {
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-  border-radius: 10px;
-  padding: 20px;
-  position: sticky;
-  top: 30px;
-  flex-shrink: 0;
-  width: 350px;
-  height: max-content;
+.cafedataview-intro-reviewbox-reviewlist-notreview {
+  padding-left: 10px;
+}
+
+@media (max-width: 990px) {
+  .cafedataview-intro-reviewbox-title {
+    font-size: 18px;
+  }
+  .cafedataview-intro-reviewbox-sortbox > div {
+    font-size: 10px;
+  }
+  .cafedataview-intro-reviewbox-reviewlist-profile-imgbox {
+    width: 30px;
+    height: 30px;
+  }
+  .cafedataview-intro-reviewbox-reviewlist-profile-info-name {
+    font-size: 12px;
+  }
+  .cafedataview-intro-reviewbox-reviewlist-profile-info-data > p {
+    font-size: 10px;
+  }
+  .cafedataview-intro-reviewbox-reviewlist-imgbox-listbox {
+    grid-template-columns: repeat(auto-fit, minmax(80px, 2fr));
+  }
+
+  .cafedataview-intro-reviewbox-reviewlist-imgbox-listbox > li {
+    height: 80px;
+  }
+
+  .cafedataview-intro-reviewbox-reviewlist-datebox-ratingimg img {
+    width: 12px;
+  }
+  .cafedataview-intro-reviewbox-reviewlist-datebox-ratingscore {
+    font-size: 12px;
+  }
+  .cafedataview-intro-reviewbox-reviewlist-datebox-details-score > p {
+    font-size: 10px;
+  }
+  .cafedataview-intro-reviewbox-reviewlist-content-main {
+    font-size: 12px;
+  }
+  .cafedataview-intro-reviewbox-reviewlist-content-date {
+    font-size: 10px;
+  }
+  .cafedataview-intro-reviewbox-more {
+    font-size: 14px;
+  }
+  .cafedataview-intro-reviewbox-reviewlist-notreview {
+    font-size: 12px;
+  }
 }

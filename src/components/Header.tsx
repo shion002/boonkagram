@@ -1,9 +1,11 @@
 import "./Header.css";
 import logo from "./../assets/boonka-logo-b.svg";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const Header = () => {
   const nav = useNavigate();
+  const { isAuthenticated } = useAuth();
 
   return (
     <header className="Header">
@@ -19,10 +21,13 @@ const Header = () => {
         <div className="login-button">
           <button
             onClick={() => {
-              nav("/login");
+              {
+                // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+                isAuthenticated ? nav("/info") : nav("/login");
+              }
             }}
           >
-            로그인
+            {isAuthenticated ? "내 정보" : "로그인"}
           </button>
         </div>
       </div>

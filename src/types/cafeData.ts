@@ -6,8 +6,8 @@ export interface CafeData {
   id: number | null;
   name: string | null;
   thumbnail: string | null;
-  ratingScore: number;
-  commentScore: number;
+  rating: number;
+  reviewCount: number;
   address: string | null;
   intro: string | null;
 }

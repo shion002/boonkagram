@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import type { Review } from "../util/Review";
-import { ratingCalc } from "../util/CafeData";
+import type { Review } from "../types/review";
+import { ratingCalc } from "../types/cafeData";
 import profile from "./../assets/profile-basic.webp";
 import "./CafeDataReview.css";
 
@@ -121,7 +121,9 @@ const CafeDataReview = ({ review }: ReviewProps) => {
             </li>
           ))
         ) : (
-          <div>등록된 리뷰가 없습니다.</div>
+          <div className="cafedataview-intro-reviewbox-reviewlist-notreview">
+            등록된 리뷰가 없습니다.
+          </div>
         )}
         {review && reviewPage < review.length && (
           <div

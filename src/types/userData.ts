@@ -1,4 +1,4 @@
 export interface UserData {
-  username: string;
+  nickname: string;
   profileImg: string | null;
 }

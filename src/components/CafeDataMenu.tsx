@@ -29,7 +29,9 @@ const CafeDataMenu = ({ menu }: MenuProps) => {
             </li>
           ))
         ) : (
-          <div>등록된 메뉴가 없습니다.</div>
+          <div className="cafedataview-intro-menubox-menulist-nullmenu">
+            등록된 메뉴가 없습니다.
+          </div>
         )}
       </ul>
       {menu && menuPage < menu.length && (

@@ -1,0 +1,72 @@
+.admin-cafelist {
+  margin-top: 60px;
+}
+
+.admin-cafelist-box {
+  border: 1px solid #eee;
+  border-radius: 10px;
+  padding: 20px;
+  display: flex;
+  margin: 30px auto;
+  max-width: 1000px;
+}
+
+.admin-cafelist-img {
+  width: 150px;
+  height: 150px;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+.admin-cafelist-img > img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  overflow-clip-margin: unset;
+}
+.admin-cafelist-content {
+  flex: 1;
+  margin-left: 30px;
+  padding-top: 10px;
+}
+.admin-cafelist-content-address {
+  margin-top: 20px;
+  font-size: 14px;
+}
+.admin-cafelist-btnbox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+}
+.admin-cafelist-btnbox > button {
+  font-size: 14px;
+  padding: 15px 25px;
+  border-radius: 10px;
+}
+.admin-cafelist-btnbox-update {
+  background-color: blueviolet;
+  color: white;
+}
+
+.admin-cafelist-btnbox-delete {
+  background-color: rgb(255, 76, 76);
+  color: white;
+}
+
+.admin-cafe-post {
+  text-align: right;
+  max-width: 900px;
+  width: 90%;
+  margin: 30px auto;
+}
+.admin-cafe-post > button {
+  font-size: 14px;
+  padding: 15px 45px;
+  border-radius: 10px;
+  background-color: rgb(234, 0, 255);
+  color: white;
+}

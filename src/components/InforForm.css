@@ -24,9 +24,34 @@
 .inforform-form-profile-editclick {
   text-align: center;
   font-size: 14px;
-  margin: 20px;
+  margin: 20px auto;
   cursor: pointer;
   color: rgb(89, 89, 224);
+  width: 120px;
+}
+.inforform-form-profile-name {
+  text-align: center;
+  font-size: 14px;
+  margin: 20px auto;
+  cursor: pointer;
+  color: rgb(122, 61, 61);
+  width: 120px;
+}
+.inforform-form-profile-admin-button {
+  margin: 20px auto;
+  display: block;
+  background-color: #ce5916;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+}
+.inforform-form-profile-deleteclick {
+  text-align: center;
+  font-size: 14px;
+  margin: 20px auto;
+  cursor: pointer;
+  color: rgb(196, 48, 48);
+  width: 120px;
 }
 .inforform-form-logbox {
   background-color: white;
@@ -105,4 +130,58 @@
 
 .inforform-form-logbox-list-more:hover {
   background-color: #ddd;
+}
+
+.inforform-form-logoutbox > p {
+  text-align: center;
+  color: rgb(250, 71, 71);
+  cursor: pointer;
+  width: 120px;
+  margin: 40px auto;
+}
+
+@media (max-width: 990px) {
+  .inforform-form-profile-imgbox {
+    width: 90px;
+    height: 90px;
+  }
+
+  .inforform-form-profile-editclick,
+  .inforform-form-profile-deleteclick,
+  .inforform-form-profile-name,
+  .inforform-form-profile-admin-button {
+    font-size: 12px;
+  }
+  .inforform-form-logbox {
+    width: 85%;
+  }
+
+  .inforform-form-logbox-tabbox {
+    width: 250px;
+  }
+
+  .inforform-form-logbox-tabbox > li {
+    font-size: 12px;
+  }
+
+  .inforform-form-logbox-list-imgbox {
+    width: 120px;
+    height: 90px;
+  }
+  .inforform-form-logbox-list-titlebox-title {
+    font-size: 12px;
+  }
+  .inforform-form-logbox-list-titlebox-address {
+    font-size: 11px;
+  }
+  .inforform-form-logbox-list-more {
+    font-size: 12px;
+    padding: 15px;
+  }
+  .inforform-form-logoutbox {
+    font-size: 12px;
+  }
+  .inforform-form-logbox-list-none {
+    font-size: 12px;
+  }
 }

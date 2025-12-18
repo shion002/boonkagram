@@ -16,3 +16,21 @@
 .login-button > button {
   font-size: 14px;
 }
+
+@media (max-width: 990px) {
+  .Header {
+    position: sticky;
+    top: 0;
+    background-color: white;
+    z-index: 1000;
+  }
+  .header-logo {
+    width: 150px;
+  }
+  .login-button > button {
+    font-size: 12px;
+  }
+  .header-wrap {
+    padding: 18px 40px;
+  }
+}

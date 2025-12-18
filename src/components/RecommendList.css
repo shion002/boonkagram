@@ -35,7 +35,9 @@
   justify-content: center;
   height: 200px;
 }
-
+.recommndlist-listbox-reset {
+  margin: 20px 0;
+}
 .recommndlist-listbox-list-imgbox img {
   height: 100%;
   width: 100%;
@@ -48,6 +50,7 @@
   padding: 10px;
 }
 .recommndlist-listbox-list-contentbox-title {
+  margin-top: 10px;
   font-size: 18px;
 }
 .recommndlist-listbox-list-contentbox-ratingbox {
@@ -117,4 +120,23 @@
 .recommendlist-page-pagebox-move img {
   width: 12px;
   height: 12px;
+}
+
+@media (max-width: 990px) {
+  .recommndlist-listbox-title {
+    font-size: 18px;
+  }
+  .recommndlist-listbox-list-contentbox-title {
+    font-size: 16px;
+    padding-bottom: 5px;
+  }
+  .recommndlist-listbox-list-contentbox-ratingbox-rating img {
+    width: 14px;
+  }
+  .recommndlist-listbox-list-contentbox-ratingbox-score {
+    font-size: 12px;
+  }
+  .recommndlist-listbox-list-contentbox-address {
+    font-size: 12px;
+  }
 }

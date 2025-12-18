@@ -26,3 +26,15 @@
 .cafedataview-intro-menubox-menulist > li p {
   display: flex;
 }
+
+@media (max-width: 990px) {
+  .cafedataview-intro-menubox-title {
+    font-size: 16px;
+  }
+  .cafedataview-intro-menubox-menulist > li {
+    font-size: 12px;
+  }
+  .cafedataview-intro-menubox-menulist-nullmenu {
+    font-size: 12px;
+  }
+}

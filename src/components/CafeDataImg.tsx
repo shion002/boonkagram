@@ -26,7 +26,10 @@ const CafeDataImg = ({ image }: ImageProps) => {
             </li>
           ))
         ) : (
-          <div> 등록된 사진이 없습니다.</div>
+          <div className="cafedataview-intro-imgbox-nullimg">
+            {" "}
+            등록된 사진이 없습니다.
+          </div>
         )}
       </ul>
       {image && imgPage < image.length && (

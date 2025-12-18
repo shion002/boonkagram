@@ -12,6 +12,10 @@
 .signform-form-box {
   margin: 50px 0;
 }
+
+.signform-form-box.none {
+  display: none;
+}
 .signform-form-input {
   border: none;
   border-bottom: 1px solid #875a4070;
@@ -65,6 +69,9 @@
   padding: 10px 20px;
   color: white;
 }
+.signform-form-phonecheck-button.none {
+  display: none;
+}
 .signform-form-box-phonecheckbox {
   display: flex;
   gap: 15px;
@@ -73,10 +80,59 @@
 .signform-form-phoneinput {
   border: none;
   border-bottom: 1px solid #875a4070;
-  background-color: #875a4015;
-  color: #a7a7a7;
   padding: 10px 5px;
-  width: 100px;
+  width: 120px;
   outline: none;
   font-size: 16px;
+}
+.signform-form-box-phonecheck-validbox {
+  display: flex;
+  gap: 15px;
+}
+
+.signform-form-box-phonecheck-validbox > input {
+  width: 250px;
+}
+.signform-form-box-phoneinputbox {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+@media (max-width: 990px) {
+  .signform-form-title {
+    font-size: 20px;
+  }
+  .signform-form-input {
+    width: 80%;
+  }
+  .signform-form-phoneinput {
+    width: 100%;
+  }
+
+  .signform-form-usernamebox-findcheckbox-button {
+    font-size: 10px;
+  }
+  .signform-form-box-phoneinputbox {
+    width: 60%;
+  }
+  .signform-form-phonecheck-button {
+    font-size: 10px;
+    padding: 10px 15px;
+    display: block;
+    margin: 10px 0;
+  }
+  .signform-form-box-phonecheck-validbox {
+    display: block;
+  }
+
+  .signform-form-box-phonecheck-validbox > input {
+    width: 80%;
+  }
+
+  .signform-form-submitbox-button {
+    width: 70%;
+    font-size: 12px;
+    padding: 15px 0;
+  }
 }

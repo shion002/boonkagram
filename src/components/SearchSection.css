@@ -17,11 +17,11 @@
 }
 .searchsection-box-searchbox-inputbox-input {
   width: 600px;
-  padding: 14px 20px;
+  padding: 16px 22px;
   border-radius: 15px;
   border: none;
   background-color: #875a4013;
-  font-size: 14px;
+  font-size: 16px;
   color: #444;
   display: block;
   position: relative;
@@ -112,10 +112,26 @@
   height: 100%;
   position: fixed;
   top: 0;
+  left: 0;
   background-color: rgba(0, 0, 0, 0.3);
   z-index: 10;
 }
 
 .signform-focus-wrap.active {
   display: block;
+}
+
+@media (max-width: 990px) {
+  .searchsection-box-searchbox {
+    width: 80%;
+  }
+
+  .searchsection-box-searchbox-inputbox-input {
+    width: 100%;
+  }
+
+  .searchsection-box-searchbox-inputbox-button {
+    width: 15px;
+    height: 15px;
+  }
 }
