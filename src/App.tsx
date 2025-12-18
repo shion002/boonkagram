@@ -5,7 +5,6 @@ import CafeView from "./page/CafeView";
 import Login from "./page/Login";
 import Sign from "./page/Sign";
 import Info from "./page/Info";
-import Admin from "./page/Admin";
 import { LocationProvider } from "./context/LocationContext";
 import { useEffect } from "react";
 import { AuthProvider } from "./context/AuthContext";

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import "./SignForm.css";
 import { useNavigate } from "react-router-dom";
 import CountdownTimer, { type CountdownTimerHandles } from "../util/CountDown";

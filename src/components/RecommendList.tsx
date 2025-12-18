@@ -3,7 +3,7 @@ import basicImg from "./../assets/basic-list.webp";
 import rightBtn from "./../assets/page-right.svg";
 import leftBtn from "./../assets/page-left.svg";
 import { useEffect, useState } from "react";
-import { useNavigate, useSearchParams, useLocation } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { ratingCalc, type CafeData } from "../types/cafeData";
 import axios from "axios";
 import SearchSection from "./SearchSection";
