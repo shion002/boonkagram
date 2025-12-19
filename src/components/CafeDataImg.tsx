@@ -87,7 +87,9 @@ const CafeDataImg = ({ image }: ImageProps) => {
   const handleKeyDown = (e: KeyboardEvent) => {
     if (!modalOpen) return;
     if (e.key === "Escape") closeModal();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     if (e.key === "ArrowLeft") goToPrevious(e as any);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     if (e.key === "ArrowRight") goToNext(e as any);
   };
 
