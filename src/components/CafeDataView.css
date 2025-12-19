@@ -111,7 +111,7 @@
   }
   .cafedataview-intro-link {
     box-shadow: none;
-    margin: auto;
+    padding: 0;
   }
   .cafedataview-intro-link-button {
     display: block;

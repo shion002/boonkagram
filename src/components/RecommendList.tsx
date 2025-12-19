@@ -28,6 +28,7 @@ const RecommendList = () => {
     lat: number;
     lon: number;
   } | null>(null);
+  const [isLoading, setIsLoading] = useState(false); // 로딩 상태 추가
 
   const ITEMS_PER_PAGE = 24;
   const PAGE_SIZE = 7;
@@ -94,6 +95,7 @@ const RecommendList = () => {
     if (isSearchMode || isNearbyMode) return;
 
     const fetchData = async () => {
+      setIsLoading(true);
       try {
         const response = await axios.get(
           `${API_BASE_URL}/api/list/descend?page=${
@@ -109,6 +111,8 @@ const RecommendList = () => {
         }
       } catch (error) {
         console.error(error);
+      } finally {
+        setIsLoading(false); // 로딩 종료
       }
     };
 
@@ -119,6 +123,7 @@ const RecommendList = () => {
     if (!isSearchMode || !searchKeyword || isNearbyMode) return;
 
     const fetchSearchData = async () => {
+      setIsLoading(true);
       try {
         const response = await axios.get(
           `${API_BASE_URL}/api/search/list-search-descend?page=${
@@ -132,6 +137,8 @@ const RecommendList = () => {
         setBundleMax(Math.ceil(response.data.totalPages / PAGE_SIZE));
       } catch (e) {
         console.error(e);
+      } finally {
+        setIsLoading(false); // 로딩 종료
       }
     };
 
@@ -143,6 +150,7 @@ const RecommendList = () => {
     if (!isNearbyMode || !userLocation) return;
 
     const fetchNearbyData = async () => {
+      setIsLoading(true);
       try {
         const response = await axios.get(
           `${API_BASE_URL}/api/search/nearby?lat=${userLocation.lat}&lon=${
@@ -156,6 +164,8 @@ const RecommendList = () => {
         setBundleMax(Math.ceil(response.data.totalPages / PAGE_SIZE));
       } catch (e) {
         console.error(e);
+      } finally {
+        setIsLoading(false); // 로딩 종료
       }
     };
 
@@ -267,7 +277,11 @@ const RecommendList = () => {
                 </button>
               )}
             </div>
-            {displayList.length === 0 ? (
+            {isLoading ? (
+              <div className="recommndlist-listbox-empty">
+                <p>검색 중...</p>
+              </div>
+            ) : displayList.length === 0 ? (
               <div className="recommndlist-listbox-empty">
                 <p>검색 결과가 없습니다.</p>
               </div>

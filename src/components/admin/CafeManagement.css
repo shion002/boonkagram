@@ -70,3 +70,19 @@
   background-color: rgb(234, 0, 255);
   color: white;
 }
+
+@media (max-width: 700px) {
+  .admin-cafelist-content-title {
+    font-size: 14px;
+  }
+  .admin-cafelist-content-address {
+    font-size: 12px;
+  }
+  .admin-cafelist-btnbox > button {
+    font-size: 12px;
+  }
+  .admin-cafelist-img {
+    width: 120px;
+    height: 120px;
+  }
+}

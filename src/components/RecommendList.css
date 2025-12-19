@@ -121,6 +121,13 @@
   width: 12px;
   height: 12px;
 }
+.recommndlist-listbox-empty {
+  margin: auto;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 @media (max-width: 990px) {
   .recommndlist-listbox-title {
@@ -138,6 +145,9 @@
   }
   .recommndlist-listbox-list-contentbox-address {
     font-size: 12px;
+  }
+  .recommndlist-listbox-empty {
+    font-size: 14px;
   }
 }
 

@@ -7,14 +7,13 @@
 
 .cafedataview-intro-imgbox-imglist {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   row-gap: 5px;
   column-gap: 5px;
   margin-top: 30px;
 }
 
 .cafedataview-intro-imgbox-imglist > li {
-  height: 200px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -48,25 +47,10 @@
   .cafedataview-intro-imgbox-more {
     font-size: 14px;
   }
-  .cafedataview-intro-imgbox-imglist {
-    grid-template-columns: repeat(auto-fit, minmax(180px, 3fr));
-  }
-  .cafedataview-intro-imgbox-imglist > li {
-    height: 140px;
-  }
   .cafedataview-intro-imgbox-title {
     font-size: 18px;
   }
   .cafedataview-intro-imgbox-nullimg {
     font-size: 12px;
-  }
-}
-
-@media (max-width: 600px) {
-  .cafedataview-intro-imgbox-imglist {
-    grid-template-columns: repeat(auto-fit, minmax(120px, 3fr));
-  }
-  .cafedataview-intro-imgbox-imglist > li {
-    height: 100px;
   }
 }
