@@ -9,7 +9,7 @@ export interface CafeData {
   rating: number;
   reviewCount: number;
   address: string | null;
-  intro: string | null;
+  titleIntro: string | null;
 }
 export const ratingCalc = (score: number, standardNum: number) => {
   if (score >= standardNum) {
