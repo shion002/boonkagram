@@ -140,3 +140,21 @@
     font-size: 12px;
   }
 }
+
+@media (max-width: 680px) {
+  .recommndlist-listbox {
+    padding: 0;
+  }
+  .recommndlist-listbox-header {
+    width: 82%;
+    margin: auto;
+  }
+  .recommndlist-listbox-list {
+    display: block;
+    width: 82%;
+    margin: 40px auto;
+  }
+  .recommndlist-listbox-list > li {
+    margin: 30px 0;
+  }
+}

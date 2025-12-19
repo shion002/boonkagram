@@ -108,17 +108,19 @@
 
 .signform-focus-wrap {
   display: none;
-  width: 100%;
-  height: 100%;
   position: fixed;
   top: 0;
   left: 0;
-  background-color: rgba(0, 0, 0, 0.3);
-  z-index: 10;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 99;
+  pointer-events: none; /* 기본적으로 이벤트 통과 */
 }
 
 .signform-focus-wrap.active {
   display: block;
+  pointer-events: none; /* 스크롤은 통과하도록 */
 }
 
 @media (max-width: 990px) {

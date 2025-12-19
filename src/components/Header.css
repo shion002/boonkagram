@@ -12,6 +12,13 @@
 .header-logo {
   width: 180px;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header-logo > img {
+  width: 100%;
 }
 .login-button > button {
   font-size: 14px;

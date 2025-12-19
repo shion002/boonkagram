@@ -1,5 +1,5 @@
 import "./Header.css";
-import logo from "./../assets/boonka-logo-b.svg";
+import logo from "./../assets/boonka-logo-b.jpg";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
