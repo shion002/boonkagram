@@ -14,17 +14,25 @@
 }
 
 .cafedataview-intro-imgbox-imglist > li {
+  aspect-ratio: 1 / 1;
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  cursor: pointer;
+  transition: opacity 0.2s;
 }
+
+.cafedataview-intro-imgbox-imglist > li:hover {
+  opacity: 0.8;
+}
+
 .cafedataview-intro-imgbox-imglist > li img {
   height: 100%;
   width: 100%;
   object-fit: cover;
-  overflow-clip-margin: unset;
 }
+
 .cafedataview-intro-imgbox-more {
   width: 100%;
   text-align: center;
@@ -43,6 +51,104 @@
   padding-left: 10px;
 }
 
+/* 이미지 모달 스타일 */
+.image-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.95);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  cursor: pointer;
+}
+
+.modal-content {
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: default;
+}
+
+.modal-content img {
+  max-width: 100%;
+  max-height: 85vh;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.modal-counter {
+  color: white;
+  margin-top: 15px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.modal-close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 40px;
+  cursor: pointer;
+  z-index: 1001;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s;
+}
+
+.modal-close:hover {
+  transform: scale(1.1);
+}
+
+.modal-prev,
+.modal-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  color: white;
+  font-size: 50px;
+  cursor: pointer;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 5px;
+  transition: all 0.2s;
+  z-index: 1001;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.modal-prev:hover,
+.modal-next:hover {
+  background: rgba(0, 0, 0, 0.7);
+  border-color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.modal-prev {
+  left: 30px;
+}
+
+.modal-next {
+  right: 30px;
+}
+
 @media (max-width: 990px) {
   .cafedataview-intro-imgbox-more {
     font-size: 14px;
@@ -52,5 +158,34 @@
   }
   .cafedataview-intro-imgbox-nullimg {
     font-size: 12px;
+  }
+
+  .cafedataview-intro-imgbox-imglist {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .modal-prev,
+  .modal-next {
+    width: 45px;
+    height: 45px;
+    font-size: 35px;
+  }
+
+  .modal-prev {
+    left: 15px;
+  }
+
+  .modal-next {
+    right: 15px;
+  }
+
+  .modal-close {
+    top: 15px;
+    right: 15px;
+    font-size: 30px;
+  }
+
+  .modal-counter {
+    font-size: 14px;
   }
 }

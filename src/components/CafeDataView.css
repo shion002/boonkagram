@@ -97,21 +97,22 @@
     padding: 0;
   }
   .cafedataview-titlebox {
-    padding: 0 40px;
+    padding: 0 10px;
   }
   .cafedataview-titlebox-title {
-    font-size: 18px;
+    font-size: 20px;
   }
   .cafedataview-titlebox-address {
-    font-size: 10px;
+    font-size: 12px;
   }
   .cafedataview-intro {
     display: block;
-    padding: 0 40px;
+    padding: 0 10px;
   }
   .cafedataview-intro-link {
     box-shadow: none;
     padding: 0;
+    width: 100%;
   }
   .cafedataview-intro-link-button {
     display: block;
@@ -130,7 +131,7 @@
     width: 16px;
   }
   .cafedataview-intro-textbox-title {
-    font-size: 14px;
+    font-size: 16px;
   }
   .cafedataview-intro-textbox-content {
     font-size: 12px;
