@@ -313,7 +313,7 @@ const RecommendList = () => {
                         <p>{cafe.address}</p>
                       </div>
                       <div className="recommndlist-listbox-list-contentbox-intro">
-                        <p>{cafe.titleIntro}</p>
+                        <p>{cafe.titleIntro ?? ""}</p>
                       </div>
                     </div>
                   </li>
