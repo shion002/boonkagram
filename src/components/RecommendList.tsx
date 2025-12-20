@@ -105,6 +105,7 @@ const RecommendList = () => {
         setCafeListData(response.data.content);
         setTotalPage(response.data.totalPages);
         setBundleMax(Math.ceil(response.data.totalPages / PAGE_SIZE));
+        console.log(response.data);
 
         if (!isInitialized) {
           setIsInitialized(true);
