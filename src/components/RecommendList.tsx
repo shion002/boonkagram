@@ -1,12 +1,11 @@
 import "./RecommendList.css";
 import basicImg from "./../assets/basic-list.webp";
-import rightBtn from "./../assets/page-right.svg";
-import leftBtn from "./../assets/page-left.svg";
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { ratingCalc, type CafeData } from "../types/cafeData";
 import axios from "axios";
 import SearchSection from "./SearchSection";
+import PageMove from "./PageMove";
 
 const RecommendList = () => {
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
@@ -28,7 +27,7 @@ const RecommendList = () => {
     lat: number;
     lon: number;
   } | null>(null);
-  const [isLoading, setIsLoading] = useState(false); // 로딩 상태 추가
+  const [isLoading, setIsLoading] = useState(false);
 
   const ITEMS_PER_PAGE = 24;
   const PAGE_SIZE = 7;
@@ -193,28 +192,6 @@ const RecommendList = () => {
     setSearchParams(new URLSearchParams());
   };
 
-  const pageMap = () => {
-    const result = [];
-    const end = bundlePage === bundleMax ? totalPage : bundlePage * PAGE_SIZE;
-
-    for (let i = (bundlePage - 1) * PAGE_SIZE + 1; i <= end; i++) {
-      result.push(
-        <li
-          key={i}
-          onClick={() => {
-            pageClick(i);
-          }}
-          className={`recommendlist-page-pagebox-pagenum ${
-            i === currentPage ? "active" : ""
-          }`}
-        >
-          {i}
-        </li>
-      );
-    }
-    return result;
-  };
-
   const pageClick = (pageNum: number) => {
     if (isNearbyMode && userLocation) {
       updateUrlParams({
@@ -232,20 +209,6 @@ const RecommendList = () => {
       updateUrlParams({
         page: pageNum,
       });
-    }
-  };
-
-  const handlePrevBundle = () => {
-    if (bundlePage > 1) {
-      const newPage = (bundlePage - 2) * PAGE_SIZE + 1;
-      pageClick(newPage);
-    }
-  };
-
-  const handleNextBundle = () => {
-    if (bundlePage < bundleMax) {
-      const newPage = bundlePage * PAGE_SIZE + 1;
-      pageClick(newPage);
     }
   };
 
@@ -337,36 +300,13 @@ const RecommendList = () => {
             )}
           </article>
           {displayList.length > 0 && (
-            <article className="recommendlist-page">
-              <ul className="recommendlist-page-pagebox">
-                <li
-                  className={`recommendlist-page-pagebox-move ${
-                    bundlePage === 1 ? "disabled" : ""
-                  }`}
-                  onClick={handlePrevBundle}
-                  style={{
-                    opacity: bundlePage === 1 ? 0.5 : 1,
-                    cursor: bundlePage === 1 ? "not-allowed" : "pointer",
-                  }}
-                >
-                  <img src={leftBtn} alt="이전" />
-                </li>
-                {pageMap()}
-                <li
-                  className={`recommendlist-page-pagebox-move ${
-                    bundlePage === bundleMax ? "disabled" : ""
-                  }`}
-                  onClick={handleNextBundle}
-                  style={{
-                    opacity: bundlePage === bundleMax ? 0.5 : 1,
-                    cursor:
-                      bundlePage === bundleMax ? "not-allowed" : "pointer",
-                  }}
-                >
-                  <img src={rightBtn} alt="다음" />
-                </li>
-              </ul>
-            </article>
+            <PageMove
+              bundlePage={bundlePage}
+              pageClick={pageClick}
+              bundleMax={bundleMax}
+              totalPage={totalPage}
+              currentPage={currentPage}
+            />
           )}
         </div>
       </section>

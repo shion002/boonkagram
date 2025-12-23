@@ -86,41 +86,6 @@
   height: 40px;
 }
 
-.recommendlist-page-pagebox {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-}
-
-.recommendlist-page-pagebox > li {
-  border-radius: 5px;
-  cursor: pointer;
-}
-.recommendlist-page-pagebox > li:hover {
-  background-color: rgba(193, 246, 255, 0.5);
-}
-
-.recommendlist-page-pagebox > li.active {
-  background-color: rgb(51, 51, 51);
-  color: white;
-}
-.recommendlist-page-pagebox > li:not(.active):hover {
-  background-color: rgba(193, 246, 255, 0.5);
-}
-
-.recommendlist-page-pagebox-pagenum {
-  padding: 5px 12px;
-  color: #999999;
-}
-
-.recommendlist-page-pagebox-move {
-  padding: 5px 10px;
-}
-
-.recommendlist-page-pagebox-move img {
-  width: 12px;
-  height: 12px;
-}
 .recommndlist-listbox-empty {
   margin: auto;
   height: 200px;

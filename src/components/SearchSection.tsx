@@ -55,6 +55,10 @@ const SearchSection = ({ searchClick, onNearbySearch }: SearchSectionProps) => {
     if (value.trim()) {
       searchClick(value.trim());
       setFocused(false);
+
+      if (document.activeElement instanceof HTMLElement) {
+        document.activeElement.blur();
+      }
     }
   };
 
@@ -65,6 +69,9 @@ const SearchSection = ({ searchClick, onNearbySearch }: SearchSectionProps) => {
   };
 
   const handleNearbySearch = async () => {
+    let currentLat = lat;
+    let currentLon = lon;
+
     if (!isLocationAllowed || lat === null || lon === null) {
       const confirm = window.confirm(
         "내 주변 검색을 위해 위치 정보 접근 권한이 필요합니다. 허용하시겠습니까?"
@@ -72,7 +79,9 @@ const SearchSection = ({ searchClick, onNearbySearch }: SearchSectionProps) => {
 
       if (confirm) {
         try {
-          await requestLocation();
+          const newLocation = await requestLocation();
+          currentLat = newLocation.lat;
+          currentLon = newLocation.lon;
         } catch (error) {
           console.error(error);
           return;
@@ -81,12 +90,14 @@ const SearchSection = ({ searchClick, onNearbySearch }: SearchSectionProps) => {
         return;
       }
     }
-
-    if (lat !== null && lon !== null) {
-      if (onNearbySearch) {
-        onNearbySearch(lat, lon);
-      }
+    if (currentLat !== null && currentLon !== null && onNearbySearch) {
+      onNearbySearch(currentLat, currentLon);
+      setValue("");
       setFocused(false);
+
+      if (document.activeElement instanceof HTMLElement) {
+        document.activeElement.blur();
+      }
     }
   };
   return (

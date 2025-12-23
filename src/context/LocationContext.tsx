@@ -10,7 +10,7 @@ interface LocationContextType {
   lat: number | null;
   lon: number | null;
   isLocationAllowed: boolean;
-  requestLocation: () => Promise<void>;
+  requestLocation: () => Promise<{ lat: number; lon: number }>;
 }
 
 const LocationContext = createContext<LocationContextType | undefined>(
@@ -33,26 +33,26 @@ export const LocationProvider = ({ children }: { children: ReactNode }) => {
     }
   }, []);
 
-  const requestLocation = async () => {
+  const requestLocation = async (): Promise<{ lat: number; lon: number }> => {
     if (!navigator.geolocation) {
       alert("위치 서비스를 지원하지 않는 브라우저 입니다");
-      return;
+      throw new Error("Geolocation not supported");
     }
 
-    return new Promise<void>((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          const lat = position.coords.latitude;
-          const lon = position.coords.longitude;
+          const newLat = position.coords.latitude;
+          const newLon = position.coords.longitude;
 
-          setLat(lat);
-          setLon(lon);
+          setLat(newLat);
+          setLon(newLon);
           setIsLocationAllowed(true);
 
-          localStorage.setItem("userLatitude", lat.toString());
-          localStorage.setItem("userLongitude", lon.toString());
+          localStorage.setItem("userLatitude", newLat.toString());
+          localStorage.setItem("userLongitude", newLon.toString());
 
-          resolve();
+          resolve({ lat: newLat, lon: newLon }); // 위치 정보 반환
         },
         (error) => {
           console.error("위치 정보 가져오기 실패:", error);
@@ -73,11 +73,12 @@ export const LocationProvider = ({ children }: { children: ReactNode }) => {
         {
           enableHighAccuracy: true,
           timeout: 10000,
-          maximumAge: 300000, // 5분
+          maximumAge: 0,
         }
       );
     });
   };
+
   return (
     <LocationContext.Provider
       value={{ lat, lon, isLocationAllowed, requestLocation }}
