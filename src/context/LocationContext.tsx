@@ -1,10 +1,4 @@
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-  type ReactNode,
-} from "react";
+import { createContext, useContext, useState, type ReactNode } from "react";
 
 interface LocationContextType {
   lat: number | null;
@@ -22,17 +16,6 @@ export const LocationProvider = ({ children }: { children: ReactNode }) => {
   const [lon, setLon] = useState<number | null>(null);
   const [isLocationAllowed, setIsLocationAllowed] = useState(false);
 
-  useEffect(() => {
-    const savedLat = localStorage.getItem("userLatitude");
-    const savedLon = localStorage.getItem("userLongitude");
-
-    if (savedLat && savedLon) {
-      setLat(parseFloat(savedLat));
-      setLon(parseFloat(savedLon));
-      setIsLocationAllowed(true);
-    }
-  }, []);
-
   const requestLocation = async (): Promise<{ lat: number; lon: number }> => {
     if (!navigator.geolocation) {
       alert("위치 서비스를 지원하지 않는 브라우저 입니다");
@@ -49,10 +32,7 @@ export const LocationProvider = ({ children }: { children: ReactNode }) => {
           setLon(newLon);
           setIsLocationAllowed(true);
 
-          localStorage.setItem("userLatitude", newLat.toString());
-          localStorage.setItem("userLongitude", newLon.toString());
-
-          resolve({ lat: newLat, lon: newLon }); // 위치 정보 반환
+          resolve({ lat: newLat, lon: newLon });
         },
         (error) => {
           console.error("위치 정보 가져오기 실패:", error);
@@ -73,7 +53,7 @@ export const LocationProvider = ({ children }: { children: ReactNode }) => {
         {
           enableHighAccuracy: true,
           timeout: 10000,
-          maximumAge: 0,
+          maximumAge: 0, // 캐시 사용 안함 - 항상 최신 위치
         }
       );
     });

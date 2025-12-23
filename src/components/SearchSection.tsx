@@ -24,7 +24,7 @@ const SearchSection = ({ searchClick, onNearbySearch }: SearchSectionProps) => {
   const [value, setValue] = useState("");
   const [focused, setFocused] = useState(false);
   const [cafelist, setCafelist] = useState<Item[]>([]);
-  const { lat, lon, isLocationAllowed, requestLocation } = useLocation();
+  const { isLocationAllowed, requestLocation } = useLocation();
 
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -69,35 +69,30 @@ const SearchSection = ({ searchClick, onNearbySearch }: SearchSectionProps) => {
   };
 
   const handleNearbySearch = async () => {
-    let currentLat = lat;
-    let currentLon = lon;
-
-    if (!isLocationAllowed || lat === null || lon === null) {
+    if (!isLocationAllowed) {
       const confirm = window.confirm(
         "내 주변 검색을 위해 위치 정보 접근 권한이 필요합니다. 허용하시겠습니까?"
       );
 
-      if (confirm) {
-        try {
-          const newLocation = await requestLocation();
-          currentLat = newLocation.lat;
-          currentLon = newLocation.lon;
-        } catch (error) {
-          console.error(error);
-          return;
-        }
-      } else {
+      if (!confirm) {
         return;
       }
     }
-    if (currentLat !== null && currentLon !== null && onNearbySearch) {
-      onNearbySearch(currentLat, currentLon);
-      setValue("");
-      setFocused(false);
 
-      if (document.activeElement instanceof HTMLElement) {
-        document.activeElement.blur();
+    try {
+      const newLocation = await requestLocation();
+
+      if (onNearbySearch) {
+        onNearbySearch(newLocation.lat, newLocation.lon);
+        setValue("");
+        setFocused(false);
+
+        if (document.activeElement instanceof HTMLElement) {
+          document.activeElement.blur();
+        }
       }
+    } catch (error) {
+      console.error("위치 가져오기 실패:", error);
     }
   };
   return (
