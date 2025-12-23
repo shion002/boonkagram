@@ -6,7 +6,7 @@
   align-items: center;
   height: 70vh;
   max-width: 700px;
-  margin: auto;
+  margin-top: 80px;
 }
 .loginform-loginbox-title {
   color: #875a40;
@@ -64,7 +64,8 @@
     width: 100%;
   }
   .loginform-loginbox-title {
-    font-size: 20px;
+    font-size: 18px;
+    text-align: center;
   }
 
   .loginform-loginbox-form-loginbtn {
