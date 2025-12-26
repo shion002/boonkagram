@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "./CafeDataView.css";
 import instagram from "./../assets/instagram-icon.svg";
 import phone from "./../assets/phone-icon.svg";
@@ -13,6 +13,7 @@ import { useEffect, useState } from "react";
 const CafeDataView = () => {
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
   const [cafeData, setcafeData] = useState<PostData>();
+  const nav = useNavigate();
 
   const { id } = useParams();
 
@@ -75,7 +76,9 @@ const CafeDataView = () => {
             <div className="cafedataview-intro-link-button">
               <button
                 onClick={() => {
-                  alert("기능 추가 예정입니다");
+                  nav(`/cafe/${id}/review`, {
+                    state: { cafeData },
+                  });
                 }}
                 className="cafedataview-intro-link-button-review"
               >

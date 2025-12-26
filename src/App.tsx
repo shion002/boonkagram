@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import { AuthProvider } from "./context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminMain from "./components/admin/AdminMain";
+import Review from "./page/Review";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -33,6 +34,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/sign" element={<Sign />} />
             <Route path="/info" element={<Info />} />
+            <Route path="/cafe/:id/review" element={<Review />} />
             <Route
               path="/admin/*"
               element={

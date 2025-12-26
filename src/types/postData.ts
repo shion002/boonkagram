@@ -2,6 +2,7 @@ import type { ImageMetadata } from "./imageMetadata";
 import type { Review } from "./review";
 
 export interface PostData {
+  id: number;
   name: string | null;
   address: string | null;
   phone: string | null;

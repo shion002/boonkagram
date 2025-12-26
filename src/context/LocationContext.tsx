@@ -53,7 +53,7 @@ export const LocationProvider = ({ children }: { children: ReactNode }) => {
         {
           enableHighAccuracy: true,
           timeout: 10000,
-          maximumAge: 0, // 캐시 사용 안함 - 항상 최신 위치
+          maximumAge: 0,
         }
       );
     });

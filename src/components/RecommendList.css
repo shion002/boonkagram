@@ -14,7 +14,11 @@
   display: grid;
   column-gap: 20px;
   row-gap: 40px;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(max(280px, calc(100% / 4 - 20px)), 1fr)
+  );
+  justify-items: flex-start;
 }
 
 .recommndlist-listbox-list > li {

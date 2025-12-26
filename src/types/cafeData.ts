@@ -3,7 +3,7 @@ import starHalf from "./../assets/star-half.svg";
 import starFull from "./../assets/star-full.svg";
 
 export interface CafeData {
-  id: number | null;
+  id: number;
   name: string | null;
   thumbnail: string | null;
   rating: number;
