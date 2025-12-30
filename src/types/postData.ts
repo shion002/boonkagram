@@ -1,5 +1,4 @@
 import type { ImageMetadata } from "./imageMetadata";
-import type { Review } from "./review";
 
 export interface PostData {
   id: number;
@@ -10,7 +9,6 @@ export interface PostData {
   webUrl: string | null;
   intro: string | null;
   imageUrls: string[] | null;
-  review: Review[] | null;
   menus: { name: string; price: number }[] | null;
 }
 

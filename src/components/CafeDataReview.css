@@ -73,13 +73,14 @@
 
 .cafedataview-intro-reviewbox-reviewlist-imgbox-listbox {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 2fr));
+  grid-template-columns: repeat(auto-fill, minmax(120px, 2fr));
   row-gap: 8px;
   column-gap: 8px;
   padding: 0 20px;
 }
 
 .cafedataview-intro-reviewbox-reviewlist-imgbox-listbox > li {
+  cursor: pointer;
   height: 120px;
   display: flex;
   justify-content: center;
@@ -185,11 +186,11 @@
     font-size: 10px;
   }
   .cafedataview-intro-reviewbox-reviewlist-imgbox-listbox {
-    grid-template-columns: repeat(auto-fit, minmax(80px, 2fr));
+    grid-template-columns: repeat(auto-fill, minmax(100px, 2fr));
   }
 
   .cafedataview-intro-reviewbox-reviewlist-imgbox-listbox > li {
-    height: 80px;
+    height: 100px;
   }
 
   .cafedataview-intro-reviewbox-reviewlist-datebox-ratingimg img {

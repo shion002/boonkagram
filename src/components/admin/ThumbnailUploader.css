@@ -1,0 +1,56 @@
+.thumbnail-uploader {
+  width: 100%;
+}
+
+.thumbnail-uploader label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.thumbnail-uploader input[type="file"] {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 0.95rem;
+}
+
+.thumbnail-preview {
+  position: relative;
+  margin-top: 1rem;
+  width: 300px;
+  max-width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.thumbnail-preview img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.thumbnail-remove-btn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background-color: rgba(255, 0, 0, 0.8);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+}
+
+.thumbnail-remove-btn:hover {
+  background-color: rgba(255, 0, 0, 1);
+}

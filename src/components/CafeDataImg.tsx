@@ -1,61 +1,28 @@
 import { useEffect, useState } from "react";
+import ImageModal from "./ImageModal";
 import "./CafeDataImg.css";
 
 interface ImageProps {
   image: string[] | null;
+  showLoadMore?: boolean;
+  initialDisplayCount?: number;
 }
 
-const CafeDataImg = ({ image }: ImageProps) => {
+const CafeDataImg = ({
+  image,
+  showLoadMore = true,
+  initialDisplayCount = 6,
+}: ImageProps) => {
   const [displayimg, setDisplayImg] = useState<string[]>([]);
-  const [imgPage, setImgPage] = useState(6);
+  const [imgPage, setImgPage] = useState(initialDisplayCount);
   const [modalOpen, setModalOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [imageLoaded, setImageLoaded] = useState<boolean[]>([]);
 
   useEffect(() => {
     if (image) {
-      setDisplayImg(image.slice(0, imgPage));
+      setDisplayImg(showLoadMore ? image.slice(0, imgPage) : image);
     }
-  }, [imgPage, image]);
-
-  useEffect(() => {
-    if (modalOpen && image) {
-      const preloadImages = () => {
-        const indices = [
-          currentImageIndex,
-          currentImageIndex - 1 >= 0 ? currentImageIndex - 1 : image.length - 1,
-          currentImageIndex + 1 < image.length ? currentImageIndex + 1 : 0,
-        ];
-
-        indices.forEach((idx) => {
-          if (!imageLoaded[idx]) {
-            const img = new Image();
-            img.src = image[idx];
-            img.onload = () => {
-              setImageLoaded((prev) => {
-                const newLoaded = [...prev];
-                newLoaded[idx] = true;
-                return newLoaded;
-              });
-            };
-          }
-        });
-      };
-
-      preloadImages();
-    }
-  }, [modalOpen, currentImageIndex, image]);
-
-  useEffect(() => {
-    if (modalOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
-    return () => {
-      document.body.style.overflow = "unset";
-    };
-  }, [modalOpen]);
+  }, [imgPage, image, showLoadMore]);
 
   const openModal = (index: number) => {
     setCurrentImageIndex(index);
@@ -65,38 +32,6 @@ const CafeDataImg = ({ image }: ImageProps) => {
   const closeModal = () => {
     setModalOpen(false);
   };
-
-  const goToPrevious = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    if (image) {
-      setCurrentImageIndex((prev) =>
-        prev === 0 ? image.length - 1 : prev - 1
-      );
-    }
-  };
-
-  const goToNext = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    if (image) {
-      setCurrentImageIndex((prev) =>
-        prev === image.length - 1 ? 0 : prev + 1
-      );
-    }
-  };
-
-  const handleKeyDown = (e: KeyboardEvent) => {
-    if (!modalOpen) return;
-    if (e.key === "Escape") closeModal();
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    if (e.key === "ArrowLeft") goToPrevious(e as any);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    if (e.key === "ArrowRight") goToNext(e as any);
-  };
-
-  useEffect(() => {
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [modalOpen, currentImageIndex]);
 
   return (
     <div className="cafedataview-intro-imgbox">
@@ -114,7 +49,7 @@ const CafeDataImg = ({ image }: ImageProps) => {
           </div>
         )}
       </ul>
-      {image && imgPage < image.length && (
+      {showLoadMore && image && imgPage < image.length && (
         <div
           className="cafedataview-intro-imgbox-more"
           onClick={() => {
@@ -125,31 +60,13 @@ const CafeDataImg = ({ image }: ImageProps) => {
         </div>
       )}
 
-      {modalOpen && image && (
-        <div className="image-modal" onClick={closeModal}>
-          <button className="modal-close" onClick={closeModal}>
-            ✕
-          </button>
-          <button className="modal-prev" onClick={goToPrevious}>
-            ‹
-          </button>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <img
-              src={image[currentImageIndex]}
-              alt="확대 이미지"
-              style={{
-                opacity: imageLoaded[currentImageIndex] ? 1 : 0.5,
-                transition: "opacity 0.2s",
-              }}
-            />
-            <div className="modal-counter">
-              {currentImageIndex + 1} / {image.length}
-            </div>
-          </div>
-          <button className="modal-next" onClick={goToNext}>
-            ›
-          </button>
-        </div>
+      {image && (
+        <ImageModal
+          images={image}
+          isOpen={modalOpen}
+          initialIndex={currentImageIndex}
+          onClose={closeModal}
+        />
       )}
     </div>
   );

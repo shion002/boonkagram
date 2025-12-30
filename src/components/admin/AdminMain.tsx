@@ -17,7 +17,6 @@ const AdminMain = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // 현재 경로에 따라 activeMenu 설정
   useEffect(() => {
     if (
       location.pathname === "/admin" ||
@@ -36,7 +35,6 @@ const AdminMain = () => {
     setActiveMenu(menu);
     setSidebarOpen(false);
 
-    // 메뉴에 따라 경로 변경
     switch (menu) {
       case "cafe":
         navigate("/admin");
@@ -76,7 +74,6 @@ const AdminMain = () => {
         </div>
       </main>
 
-      {/* 모바일 오버레이 */}
       {sidebarOpen && (
         <div
           className="sidebar-overlay"

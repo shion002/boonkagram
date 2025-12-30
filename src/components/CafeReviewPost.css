@@ -4,34 +4,12 @@
   padding: 20px 80px;
 }
 .reviewpost-score {
-  margin-top: 60px;
-}
-.reviewpost-scorebox {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 15px;
-  margin: 20px 0;
-}
-.reviewpost-score-imgbox {
-  display: flex;
-  gap: 10px;
-}
-.reviewpost-score-imgbox > img {
-  width: 40px;
-  height: 40px;
-  display: block;
-  cursor: pointer;
-}
-.reviewpost-scorebox-title {
-  width: 80px;
-  text-align: center;
-}
-.review-scorebox-score {
-  width: 40px;
-  text-align: center;
+  margin: 40px 0;
 }
 
+.reviewpost-imagebox {
+  margin: 40px 0;
+}
 .reviewpost-content-textarea {
   width: 100%;
   min-height: 200px;

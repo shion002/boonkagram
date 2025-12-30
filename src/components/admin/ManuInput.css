@@ -1,0 +1,83 @@
+.menu-input {
+  width: 100%;
+}
+
+.menu-input-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.menu-input-header h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.menu-input-header .add-btn {
+  padding: 0.5rem 1rem;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s;
+}
+
+.menu-input-header .add-btn:hover {
+  background-color: #218838;
+}
+
+.menu-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.menu-item {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.menu-item input[type="text"],
+.menu-item input[type="number"] {
+  flex: 1;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.menu-item input[type="text"] {
+  flex: 2;
+}
+
+.menu-item input[type="number"] {
+  flex: 1;
+}
+
+.menu-item .remove-btn {
+  padding: 0.75rem 1rem;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  transition: background-color 0.2s;
+}
+
+.menu-item .remove-btn:hover {
+  background-color: #c82333;
+}
+
+.empty-message {
+  color: #999;
+  text-align: center;
+  padding: 2rem;
+  border: 2px dashed #ddd;
+  border-radius: 8px;
+}

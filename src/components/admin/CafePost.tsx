@@ -107,7 +107,6 @@ const CafePost = ({ cafeId, mode }: CafePostProps) => {
     return true;
   };
 
-  // 입력 변경 핸들러
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -120,7 +119,6 @@ const CafePost = ({ cafeId, mode }: CafePostProps) => {
     }
   };
 
-  // 썸네일 변경 핸들러
   const handleThumbnailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -143,7 +141,6 @@ const CafePost = ({ cafeId, mode }: CafePostProps) => {
     }
   };
 
-  // 썸네일 삭제
   const handleThumbnailRemove = () => {
     setThumbnailFile(null);
     setExistingThumbnail(null);
@@ -157,7 +154,6 @@ const CafePost = ({ cafeId, mode }: CafePostProps) => {
     }
   };
 
-  // 사진 리스트 변경 핸들러
   const handleImagesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
 
@@ -186,31 +182,25 @@ const CafePost = ({ cafeId, mode }: CafePostProps) => {
     e.target.value = "";
   };
 
-  // 기존 이미지 삭제
   const handleExistingImageRemove = (index: number) => {
     setExistingImages((prev) => prev.filter((_, i) => i !== index));
     setImagePreviews((prev) => prev.filter((_, i) => i !== index));
   };
 
-  // 새 이미지 삭제
   const handleNewImageRemove = (index: number) => {
     const actualIndex = index - existingImages.length;
     setImageFiles((prev) => prev.filter((_, i) => i !== actualIndex));
     setImagePreviews((prev) => prev.filter((_, i) => i !== index));
   };
 
-  // 통합 이미지 삭제
   const handleImageRemove = (index: number) => {
     if (index < existingImages.length) {
-      // 기존 이미지
       handleExistingImageRemove(index);
     } else {
-      // 새 이미지
       handleNewImageRemove(index);
     }
   };
 
-  // 메뉴 추가
   const handleAddMenu = () => {
     const newMenu = { name: "", price: 0 };
     setFormData((prev) => ({
@@ -219,7 +209,6 @@ const CafePost = ({ cafeId, mode }: CafePostProps) => {
     }));
   };
 
-  // 🔧 메뉴 변경 - 수정
   const handleMenuChange = (
     index: number,
     field: "name" | "price",
@@ -231,10 +220,8 @@ const CafePost = ({ cafeId, mode }: CafePostProps) => {
       if (i !== index) return menu;
 
       if (field === "price") {
-        // price 필드: 숫자로 변환, 빈 문자열이면 0
         return { ...menu, price: Number(value) || 0 };
       } else {
-        // name 필드: 빈 문자열도 그대로 유지 (null이 아님)
         return { ...menu, name: value };
       }
     });
@@ -437,7 +424,6 @@ const CafePost = ({ cafeId, mode }: CafePostProps) => {
           </div>
         </section>
 
-        {/* 위치 정보 */}
         <section className="form-section">
           <h2>위치 정보</h2>
 
@@ -472,7 +458,6 @@ const CafePost = ({ cafeId, mode }: CafePostProps) => {
           </div>
         </section>
 
-        {/* 연락처 정보 */}
         <section className="form-section">
           <h2>연락처 정보</h2>
 
@@ -513,7 +498,6 @@ const CafePost = ({ cafeId, mode }: CafePostProps) => {
           </div>
         </section>
 
-        {/* 상세 정보 */}
         <section className="form-section">
           <h2>상세 정보</h2>
 
@@ -530,7 +514,6 @@ const CafePost = ({ cafeId, mode }: CafePostProps) => {
           </div>
         </section>
 
-        {/* 메뉴 */}
         <section className="form-section">
           <div className="section-header">
             <h2>메뉴</h2>

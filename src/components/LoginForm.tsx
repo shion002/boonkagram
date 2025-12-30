@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import "./LoginForm.css";
 import axios from "axios";
 import { useState } from "react";
+import type { ErrorResponse } from "../types/response";
 
 interface LoginRequest {
   username: string;
@@ -34,6 +35,12 @@ const LoginForm = () => {
       console.log("로그인 성공", res);
       window.location.href = "/";
     } catch (e) {
+      if (axios.isAxiosError(e) && e.response) {
+        const errorData = e.response.data as ErrorResponse;
+        alert(errorData.error);
+      } else {
+        alert("로그인 중 오류가 발생했습니다.");
+      }
       console.error(e);
     }
   };

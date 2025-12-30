@@ -104,7 +104,6 @@ const RecommendList = () => {
         setCafeListData(response.data.content);
         setTotalPage(response.data.totalPages);
         setBundleMax(Math.ceil(response.data.totalPages / PAGE_SIZE));
-        console.log(response.data);
 
         if (!isInitialized) {
           setIsInitialized(true);
@@ -112,7 +111,7 @@ const RecommendList = () => {
       } catch (error) {
         console.error(error);
       } finally {
-        setIsLoading(false); // 로딩 종료
+        setIsLoading(false);
       }
     };
 
@@ -138,14 +137,13 @@ const RecommendList = () => {
       } catch (e) {
         console.error(e);
       } finally {
-        setIsLoading(false); // 로딩 종료
+        setIsLoading(false);
       }
     };
 
     fetchSearchData();
   }, [currentPage, isSearchMode, searchKeyword, isNearbyMode]);
 
-  // 내 주변 검색 결과 조회
   useEffect(() => {
     if (!isNearbyMode || !userLocation) return;
 
@@ -165,7 +163,7 @@ const RecommendList = () => {
       } catch (e) {
         console.error(e);
       } finally {
-        setIsLoading(false); // 로딩 종료
+        setIsLoading(false);
       }
     };
 
@@ -280,7 +278,7 @@ const RecommendList = () => {
                           <img src={ratingCalc(cafe.rating, 5)} alt="" />
                         </div>
                         <h5 className="recommendlist-listbox-list-contentbox-ratingbox-score">
-                          {cafe.rating}
+                          {cafe.rating.toFixed(1)}
                         </h5>
                         <div className="recommndlist-listbox-list-contentbox-ratingbox-comment">
                           <p>리뷰</p>

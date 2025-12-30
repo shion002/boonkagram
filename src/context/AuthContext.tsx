@@ -34,7 +34,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       });
       setUser(response.data);
     } catch (error) {
-      console.error("인증 확인 실패:", error);
       setUser(null);
     } finally {
       setLoading(false);

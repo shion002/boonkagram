@@ -1,14 +1,15 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import type { PostData } from "../types/postData";
-import starNull from "./../assets/star-null.svg";
-import starFull from "./../assets/star-full.svg";
 import "./CafeReviewPost.css";
 import { useState } from "react";
-import type { ReviewRequest } from "../types/review";
+import type { ReviewPresignedResponse, ReviewRequest } from "../types/review";
 import axios from "axios";
+import RatingInput from "./RatingInput";
+import ImageUploader from "./ImageUploader";
 
 const CafeReviewPost = () => {
   const location = useLocation();
+  const { id } = useParams();
 
   const cafeData: PostData = location.state?.cafeData;
 
@@ -18,13 +19,11 @@ const CafeReviewPost = () => {
   const [cost, setCost] = useState(0);
 
   const [imageFiles, setImageFiles] = useState<File[]>([]);
-  const [imagePreviews, setImagePreviews] = useState<string[]>([]);
-  const [existingImages, setExistingImages] = useState<string[]>([]);
-
   const [content, setContent] = useState("");
-  const MAX_LENGTH = 1000;
-
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const MAX_LENGTH = 1000;
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
   const ratings = [
     { scoreName: "맛", score: taste, setValue: setTaste },
@@ -33,77 +32,6 @@ const CafeReviewPost = () => {
     { scoreName: "가격", score: cost, setValue: setCost },
   ];
 
-  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-
-  // 이미지
-
-  const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
-
-  const validateFileSize = (file: File): boolean => {
-    if (file.size > MAX_FILE_SIZE) {
-      alert(
-        `파일 크기는 10MB 이하여야 합니다. (현재: ${(
-          file.size /
-          1024 /
-          1024
-        ).toFixed(2)}MB)`
-      );
-      return false;
-    }
-    return true;
-  };
-
-  const handleImagesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = Array.from(e.target.files || []);
-
-    if (files.length + imageFiles.length > 10) {
-      alert("이미지는 최대 10장 등록할 수 있습니다");
-      return;
-    }
-
-    const validFiles: File[] = [];
-    for (const file of files) {
-      if (validateFileSize(file)) {
-        validFiles.push(file);
-      }
-    }
-
-    if (validFiles.length === 0) {
-      e.target.value = "";
-      return;
-    }
-
-    setImageFiles((prev) => [...prev, ...validFiles]);
-
-    validFiles.forEach((file) => {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImagePreviews((prev) => [...prev, reader.result as string]);
-      };
-      reader.readAsDataURL(file);
-    });
-
-    e.target.value = "";
-  };
-  const handleImageRemove = (index: number) => {
-    if (index < existingImages.length) {
-      handleExistingImageRemove(index);
-    } else {
-      handleNewImageRemove(index);
-    }
-  };
-  const handleExistingImageRemove = (index: number) => {
-    setExistingImages((prev) => prev.filter((_, i) => i !== index));
-    setImagePreviews((prev) => prev.filter((_, i) => i !== index));
-  };
-
-  const handleNewImageRemove = (index: number) => {
-    const actualIndex = index - existingImages.length;
-    setImageFiles((prev) => prev.filter((_, i) => i !== actualIndex));
-    setImagePreviews((prev) => prev.filter((_, i) => i !== index));
-  };
-
-  // 텍스트
   const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value;
     if (value.length <= MAX_LENGTH) {
@@ -111,9 +39,13 @@ const CafeReviewPost = () => {
     }
   };
 
+  const handleImagesChange = (files: File[]) => {
+    setImageFiles(files);
+  };
+
   const reviewCreate = async () => {
     if (isSubmitting) return;
-    setIsSubmitting(true);
+
     if (taste === 0 || service === 0 || mood === 0 || cost === 0) {
       alert("맛, 서비스, 분위기, 가격의 평점을 입력해주세요");
       return;
@@ -129,34 +61,85 @@ const CafeReviewPost = () => {
       return;
     }
 
-    const imageMetadata = imageFiles.map((file) => ({
-      fileName: file.name,
-      fileType: file.type,
-    }));
-
-    const reviewRequest: ReviewRequest = {
-      content: content,
-      reviewImages: imageMetadata,
-      reviewScore: {
-        tasteScore: taste,
-        serviceScore: service,
-        moodScore: mood,
-        costScore: cost,
-      },
-      postId: cafeData.id,
-    };
+    setIsSubmitting(true);
 
     try {
-      const response = await axios.post(
+      const imageMetadata = imageFiles.map((file) => ({
+        fileName: file.name,
+        fileType: file.type,
+      }));
+
+      const reviewRequest: ReviewRequest = {
+        content: content,
+        reviewImages: imageMetadata,
+        reviewScore: {
+          tasteScore: taste,
+          serviceScore: service,
+          moodScore: mood,
+          costScore: cost,
+        },
+        postId: cafeData.id,
+      };
+
+      const response = await axios.post<ReviewPresignedResponse>(
         `${API_BASE_URL}/api/review/create`,
         reviewRequest,
         { withCredentials: true }
       );
-      console.log(response.data);
-      alert("리뷰 작성이 완료되었습니다");
-      window.location.href = `/cafe/${cafeData.id}`;
-    } catch (e) {
-      console.log(e);
+
+      if (
+        !response.data?.imagePresignedUrls ||
+        response.data.imagePresignedUrls.length === 0
+      ) {
+        console.warn("Presigned URL이 없습니다");
+        alert("이미지 업로드 URL을 받지 못했습니다.");
+        return;
+      }
+
+      const uploadPromises = response.data.imagePresignedUrls.map(
+        async (presignedData, index) => {
+          const file = imageFiles[index];
+
+          try {
+            await axios.put(presignedData.presignedUrl, file, {
+              headers: {
+                "Content-Type": file.type,
+              },
+              timeout: 30000,
+            });
+
+            return { success: true, index };
+          } catch (uploadError) {
+            console.error(`이미지 ${index + 1} 업로드 실패:`, uploadError);
+            return { success: false, index, error: uploadError };
+          }
+        }
+      );
+
+      const results = await Promise.all(uploadPromises);
+      const failedUploads = results.filter((r) => !r.success);
+
+      if (failedUploads.length > 0) {
+        console.error("업로드 실패한 이미지:", failedUploads);
+        alert(
+          `${failedUploads.length}개의 이미지 업로드에 실패했습니다. 다시 시도해주세요.`
+        );
+        return;
+      }
+
+      alert("리뷰가 성공적으로 등록되었습니다!");
+      window.location.href = `/cafe/${id}`;
+    } catch (error) {
+      console.error("리뷰 생성 중 오류:", error);
+      if (axios.isAxiosError(error) && error.response) {
+        const errorMessage =
+          error.response.data?.message ||
+          error.response.data ||
+          "리뷰 등록에 실패했습니다.";
+        alert(errorMessage);
+      } else {
+        alert("리뷰 등록에 실패했습니다. 다시 시도해주세요.");
+      }
     } finally {
       setIsSubmitting(false);
     }
@@ -169,65 +152,26 @@ const CafeReviewPost = () => {
           <h3>{cafeData.name}</h3>
           <p>{cafeData.address}</p>
         </article>
+
         <article className="reviewpost-score">
-          {ratings.map((rating) => (
-            <div className="reviewpost-scorebox">
-              <h4 className="reviewpost-scorebox-title">{rating.scoreName}</h4>
-              <div className="reviewpost-score-imgbox">
-                {[1, 2, 3, 4, 5].map((star) => (
-                  <img
-                    key={star}
-                    src={star <= rating.score ? starFull : starNull}
-                    onClick={() => rating.setValue(star)}
-                  />
-                ))}
-              </div>
-              <h4 className="review-scorebox-score">{rating.score}</h4>
-            </div>
+          {ratings.map((rating, index) => (
+            <RatingInput
+              key={index}
+              label={rating.scoreName}
+              value={rating.score}
+              onChange={rating.setValue}
+            />
           ))}
         </article>
-        <article className="reviewpost-imagebox">
-          <div className="form-section">
-            <h2>사진</h2>
-            <div className="form-group">
-              <label htmlFor="images" style={{ cursor: "pointer" }}>
-                <button
-                  type="button"
-                  onClick={() => document.getElementById("images")?.click()}
-                >
-                  파일 선택
-                </button>
-              </label>
-              <input
-                type="file"
-                id="images"
-                accept="image/*"
-                multiple
-                onChange={handleImagesChange}
-                style={{ display: "none" }}
-              />
-            </div>
 
-            <div className="image-list">
-              {imagePreviews.length === 0 ? (
-                <p className="empty-message">등록된 사진이 없습니다.</p>
-              ) : (
-                imagePreviews.map((preview, index) => (
-                  <div key={index} className="image-item">
-                    <img src={preview} alt={`사진 ${index + 1}`} />
-                    <button
-                      type="button"
-                      className="remove-btn"
-                      onClick={() => handleImageRemove(index)}
-                    >
-                      ✕
-                    </button>
-                  </div>
-                ))
-              )}
-            </div>
-          </div>
+        <article className="reviewpost-imagebox">
+          <ImageUploader
+            maxImages={10}
+            onImagesChange={handleImagesChange}
+            buttonText="파일 선택"
+          />
         </article>
+
         <article className="reviewpost-content">
           <textarea
             className="reviewpost-content-textarea"
@@ -242,9 +186,18 @@ const CafeReviewPost = () => {
             <p>{MAX_LENGTH}</p>
           </div>
           <div className="reviewpost-button">
-            <button className="reviewpost-cancel-button">취소</button>
-            <button onClick={reviewCreate} className="reviewpost-submit-button">
-              작성하기
+            <button
+              className="reviewpost-cancel-button"
+              onClick={() => window.history.back()}
+            >
+              취소
+            </button>
+            <button
+              onClick={reviewCreate}
+              className="reviewpost-submit-button"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "작성 중..." : "작성하기"}
             </button>
           </div>
         </article>

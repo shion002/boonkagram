@@ -14,11 +14,7 @@
   display: grid;
   column-gap: 20px;
   row-gap: 40px;
-  grid-template-columns: repeat(
-    auto-fit,
-    minmax(max(280px, calc(100% / 4 - 20px)), 1fr)
-  );
-  align-items: start;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
 }
 
 .recommndlist-listbox-list > li {
@@ -26,8 +22,6 @@
   border-radius: 10px;
   overflow: hidden;
   cursor: pointer;
-  width: 100%;
-  max-width: 400px;
 }
 
 .recommndlist-listbox-list > li:hover .recommndlist-listbox-list-imgbox img {

@@ -9,19 +9,65 @@ import CafeDataImg from "./CafeDataImg";
 import CafeDataReview from "./CafeDataReview";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useAuth } from "../context/AuthContext";
+import type { CanReviewResponse } from "../types/review";
 
 const CafeDataView = () => {
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
   const [cafeData, setcafeData] = useState<PostData>();
   const nav = useNavigate();
+  const { isAuthenticated, loading: authLoading } = useAuth();
+  const [isCheckingReview, setIsCheckingReview] = useState(false);
 
   const { id } = useParams();
+
+  const handleReviewButtonClick = async () => {
+    if (!isAuthenticated) {
+      const confirm = window.confirm(
+        "로그인이 필요한 서비스입니다.\n로그인 페이지로 이동하시겠습니까?"
+      );
+      if (confirm) {
+        nav("/login", { state: { from: `/cafe/${id}` } });
+      }
+      return;
+    }
+
+    setIsCheckingReview(true);
+
+    try {
+      const response = await axios.get<CanReviewResponse>(
+        `${API_BASE_URL}/api/review/can-review/${id}`,
+        { withCredentials: true }
+      );
+
+      if (response.data.canReview) {
+        nav(`/cafe/${id}/review`, {
+          state: { cafeData },
+        });
+      } else {
+        alert(response.data.message || "리뷰를 작성할 수 없습니다.");
+      }
+    } catch (error) {
+      console.error("리뷰 작성 가능 여부 확인 실패:", error);
+
+      if (axios.isAxiosError(error)) {
+        if (error.response?.status === 401) {
+          alert("세션이 만료되었습니다. 다시 로그인해주세요.");
+          nav("/login");
+        } else {
+          alert("오류가 발생했습니다. 다시 시도해주세요.");
+        }
+      }
+    } finally {
+      setIsCheckingReview(false);
+    }
+  };
 
   useEffect(() => {
     const postFetchData = async () => {
       try {
         const response = await axios.get(
-          `${API_BASE_URL}/api/cafe/get-post?cafeId=${id}`
+          `${API_BASE_URL}/api/cafe/${id}/get-post`
         );
         setcafeData(response.data);
       } catch (error) {
@@ -55,7 +101,7 @@ const CafeDataView = () => {
             </div>
             <CafeDataMenu menu={cafeData.menus} />
             <CafeDataImg image={cafeData.imageUrls} />
-            <CafeDataReview review={cafeData.review} />
+            <CafeDataReview />
           </div>
           <aside className="cafedataview-intro-link">
             <h4>메신저</h4>
@@ -75,14 +121,20 @@ const CafeDataView = () => {
             </ul>
             <div className="cafedataview-intro-link-button">
               <button
-                onClick={() => {
-                  nav(`/cafe/${id}/review`, {
-                    state: { cafeData },
-                  });
-                }}
+                onClick={handleReviewButtonClick}
                 className="cafedataview-intro-link-button-review"
+                disabled={isCheckingReview || authLoading}
+                style={{
+                  opacity: isCheckingReview || authLoading ? 0.6 : 1,
+                  cursor:
+                    isCheckingReview || authLoading ? "not-allowed" : "pointer",
+                }}
               >
-                리뷰작성
+                {authLoading
+                  ? "로딩 중..."
+                  : isCheckingReview
+                  ? "확인 중..."
+                  : "리뷰작성"}
               </button>
               <button
                 onClick={() => {
