@@ -13,7 +13,7 @@
 ## 👀 미리보기
 
 <img
-  src="https://github.com/shion002/project_thumb/boonkagram.jpg"
+  src="https://github.com/shion002/project_thumb/blob/main/boonkagram.jpg"
   alt="프로젝트 미리보기"
   width="700"
   style="border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);"
