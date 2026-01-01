@@ -3,8 +3,8 @@
 <br/>
 
 - 소개 : 분위기 좋은 카페를 모아놓은 데이터 기반 원하는 카페를 찾고, 관리자 페이지를 통한 유지보수
-- Frontend : React, TypeScript
-- Backend : Spring boot JPA, PostgreSQL, Nginx
+- Frontend Skill : React, TypeScript
+- Backend Skill : Spring boot JPA, PostgreSQL, Nginx
 - 백엔드 Repository : https://github.com/shion002/boonkagram_server
 
 
