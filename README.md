@@ -12,11 +12,12 @@
 
 ## 👀 미리보기
 
+<br/>
+<br/>
 <img
   src="https://github.com/shion002/project_thumb/blob/main/boonkagram_radius.jpg"
   alt="프로젝트 미리보기"
   width="700"
-  style="border-radius: 500px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);"
 />
 
 <br/>
