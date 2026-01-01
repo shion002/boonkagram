@@ -2,23 +2,11 @@
 
 <br/>
 
-소개
-- 프로젝트에 대한 간단한 설명을 작성하세요.
-- 어떤 목적의 서비스인지, 어떤 점에 집중했는지 한두 줄로 정리하면 좋습니다.
-
-<br/>
-
-## 🛠 기술 스택
+- 소개: 분위기 좋은 카페를 모아놓은 데이터 기반 원하는 카페를 찾고, 관리자 페이지를 통한 유지보수
 - Frontend: React, TypeScript
-- 상태 관리: (Context / Zustand / Recoil 등)
-- 스타일: (CSS / Styled-components / Tailwind 등)
-- 기타: (Axios, React Router 등)
+- Backend: Spring boot JPA, PostgreSQL, Nginx
+- 백엔드 Repository: https://github.com/shion002/boonkagram_server
 
-<br/>
-
-## 🔗 백엔드 URL
-- https://github.com/yourname/backend-repository  
-*(백엔드가 없는 경우 해당 섹션을 제거해도 됩니다)*
 
 <br/>
 
