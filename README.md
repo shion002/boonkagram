@@ -16,8 +16,6 @@
 <br/>
 <img
   src="https://github.com/shion002/project_thumb/blob/main/boonkagram_radius.jpg"
-  alt="프로젝트 미리보기"
-  width="700"
 />
 
 <br/>
