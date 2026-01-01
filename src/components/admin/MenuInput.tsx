@@ -1,4 +1,4 @@
-import "./MenuInput.css";
+import "./ManuInput.css";
 
 interface Menu {
   name: string;

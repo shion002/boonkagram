@@ -112,11 +112,25 @@ const CafeDataView = () => {
               </li>
               <li>
                 <img src={instagram} />
-                <p>{cafeData.instagram}</p>
+                <p
+                  onClick={() => {
+                    window.open(`${cafeData.instagram}`);
+                  }}
+                  className="cafedataview-intro-link-linklist-url"
+                >
+                  {cafeData.instagram}
+                </p>
               </li>
               <li>
                 <img src={webIcon} />
-                <p>{cafeData.webUrl}</p>
+                <p
+                  onClick={() => {
+                    window.open(`${cafeData.instagram}`);
+                  }}
+                  className="cafedataview-intro-link-linklist-url"
+                >
+                  {cafeData.webUrl}
+                </p>
               </li>
             </ul>
             <div className="cafedataview-intro-link-button">

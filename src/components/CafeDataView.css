@@ -65,7 +65,13 @@
 
 .cafedataview-intro-link-linklist > li > p {
   color: #333;
-  font-size: 16px;
+  font-size: 14px;
+}
+.cafedataview-intro-link-linklist-url {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
 }
 .cafedataview-intro-link-linklist > li > img {
   width: 25px;

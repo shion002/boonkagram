@@ -3,6 +3,9 @@ import "./CafePost.css";
 import type { PostCafeResponse, PostRequestData } from "../../types/postData";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import ThumbnailUploader from "./ThumbnailUploader";
+import MenuInput from "./MenuInput";
+import ImageUploader from "../ImageUploader";
 
 interface CafePostProps {
   cafeId?: number;
@@ -31,15 +34,12 @@ const CafePost = ({ cafeId, mode }: CafePostProps) => {
     null
   );
   const [existingImages, setExistingImages] = useState<string[]>([]);
-  const [thumbnailPreview, setThumbnailPreview] = useState<string>("");
   const [thumbnailFile, setThumbnailFile] = useState<File | null>(null);
-  const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const [imageFiles, setImageFiles] = useState<File[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const nav = useNavigate();
 
-  const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
   useEffect(() => {
@@ -51,7 +51,6 @@ const CafePost = ({ cafeId, mode }: CafePostProps) => {
 
     if (isEditMode && cafeId) {
       fetchCafeData(cafeId);
-      console.log(cafeId);
     }
   }, [cafeId, isEditMode, nav]);
 
@@ -80,31 +79,15 @@ const CafePost = ({ cafeId, mode }: CafePostProps) => {
 
       if (data.thumbnail) {
         setExistingThumbnail(data.thumbnail);
-        setThumbnailPreview(data.thumbnail);
       }
       if (data.imageUrls && data.imageUrls.length > 0) {
         setExistingImages(data.imageUrls);
-        setImagePreviews(data.imageUrls);
       }
     } catch (e) {
       console.error("데이터 로드 실패: ", e);
       alert("카페 정보를 불러오는데 실패했습니다");
       nav("/admin");
     }
-  };
-
-  const validateFileSize = (file: File): boolean => {
-    if (file.size > MAX_FILE_SIZE) {
-      alert(
-        `파일 크기는 10MB 이하여야 합니다. (현재: ${(
-          file.size /
-          1024 /
-          1024
-        ).toFixed(2)}MB)`
-      );
-      return false;
-    }
-    return true;
   };
 
   const handleInputChange = (
@@ -119,128 +102,30 @@ const CafePost = ({ cafeId, mode }: CafePostProps) => {
     }
   };
 
-  const handleThumbnailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
+  const handleThumbnailChange = (file: File | null) => {
+    setThumbnailFile(file);
     if (file) {
-      if (!validateFileSize(file)) {
-        e.target.value = "";
-        return;
-      }
-
-      setThumbnailFile(file);
       setFormData((prev) => ({
         ...prev,
         thumbnail: { fileName: file.name, fileType: file.type },
       }));
-
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setThumbnailPreview(reader.result as string);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const handleThumbnailRemove = () => {
-    setThumbnailFile(null);
-    setExistingThumbnail(null);
-    setFormData((prev) => ({ ...prev, thumbnail: null }));
-    setThumbnailPreview("");
-    const thumbnailInput = document.getElementById(
-      "thumbnail"
-    ) as HTMLInputElement;
-    if (thumbnailInput) {
-      thumbnailInput.value = "";
-    }
-  };
-
-  const handleImagesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = Array.from(e.target.files || []);
-
-    const validFiles: File[] = [];
-    for (const file of files) {
-      if (validateFileSize(file)) {
-        validFiles.push(file);
-      }
-    }
-
-    if (validFiles.length === 0) {
-      e.target.value = "";
-      return;
-    }
-
-    setImageFiles((prev) => [...prev, ...validFiles]);
-
-    validFiles.forEach((file) => {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImagePreviews((prev) => [...prev, reader.result as string]);
-      };
-      reader.readAsDataURL(file);
-    });
-
-    e.target.value = "";
-  };
-
-  const handleExistingImageRemove = (index: number) => {
-    setExistingImages((prev) => prev.filter((_, i) => i !== index));
-    setImagePreviews((prev) => prev.filter((_, i) => i !== index));
-  };
-
-  const handleNewImageRemove = (index: number) => {
-    const actualIndex = index - existingImages.length;
-    setImageFiles((prev) => prev.filter((_, i) => i !== actualIndex));
-    setImagePreviews((prev) => prev.filter((_, i) => i !== index));
-  };
-
-  const handleImageRemove = (index: number) => {
-    if (index < existingImages.length) {
-      handleExistingImageRemove(index);
+      setExistingThumbnail(null);
     } else {
-      handleNewImageRemove(index);
+      setFormData((prev) => ({ ...prev, thumbnail: null }));
+      setExistingThumbnail(null);
     }
   };
 
-  const handleAddMenu = () => {
-    const newMenu = { name: "", price: 0 };
-    setFormData((prev) => ({
-      ...prev,
-      menus: prev.menus ? [...prev.menus, newMenu] : [newMenu],
-    }));
+  const handleImagesChange = (files: File[]) => {
+    setImageFiles(files);
   };
 
-  const handleMenuChange = (
-    index: number,
-    field: "name" | "price",
-    value: string
+  const handleMenusChange = (
+    menus: { name: string; price: number }[] | null
   ) => {
-    if (!formData.menus) return;
-
-    const updatedMenus = formData.menus.map((menu, i) => {
-      if (i !== index) return menu;
-
-      if (field === "price") {
-        return { ...menu, price: Number(value) || 0 };
-      } else {
-        return { ...menu, name: value };
-      }
-    });
-
-    setFormData((prev) => ({ ...prev, menus: updatedMenus }));
+    setFormData((prev) => ({ ...prev, menus }));
   };
 
-  // 메뉴 삭제
-  const handleMenuRemove = (index: number) => {
-    if (!formData.menus) return;
-
-    const updatedMenus = formData.menus.filter((_, i) => i !== index);
-    setFormData((prev) => ({
-      ...prev,
-      menus: updatedMenus.length > 0 ? updatedMenus : null,
-    }));
-  };
-
-  // 폼 제출
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -262,8 +147,6 @@ const CafePost = ({ cafeId, mode }: CafePostProps) => {
         menus: validMenus && validMenus.length > 0 ? validMenus : null,
         imageUrls: imageMetadata.length > 0 ? imageMetadata : null,
       };
-
-      console.log("Submit Data:", JSON.stringify(submitData, null, 2));
 
       if (isEditMode) {
         if (existingImages.length > 0) {
@@ -339,16 +222,21 @@ const CafePost = ({ cafeId, mode }: CafePostProps) => {
       );
       window.location.href = "/admin";
     } catch (error) {
-      console.error("등록 실패:", error);
-      if (axios.isAxiosError(error)) {
-        console.error(isEditMode ? "수정 실패:" : "등록 실패:", error);
+      console.error(isEditMode ? "수정 실패:" : "등록 실패:", error);
+      if (axios.isAxiosError(error) && error.response) {
+        const errorMessage =
+          error.response.data?.message ||
+          error.response.data ||
+          (isEditMode
+            ? "수정 중 오류가 발생했습니다."
+            : "등록 중 오류가 발생했습니다.");
+        alert(errorMessage);
+      } else {
         alert(
           isEditMode
             ? "수정 중 오류가 발생했습니다."
             : "등록 중 오류가 발생했습니다."
         );
-      } else {
-        alert("등록 중 오류가 발생했습니다.");
       }
     } finally {
       setIsSubmitting(false);
@@ -364,7 +252,7 @@ const CafePost = ({ cafeId, mode }: CafePostProps) => {
           <h2>기본 정보</h2>
 
           <div className="form-group">
-            <label htmlFor="title">제목 *</label>
+            <label htmlFor="cafeName">제목 *</label>
             <input
               type="text"
               id="cafeName"
@@ -402,25 +290,10 @@ const CafePost = ({ cafeId, mode }: CafePostProps) => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="thumbnail">썸네일 (10MB 이하)</label>
-            <input
-              type="file"
-              id="thumbnail"
-              accept="image/*"
-              onChange={handleThumbnailChange}
+            <ThumbnailUploader
+              onThumbnailChange={handleThumbnailChange}
+              initialPreview={existingThumbnail}
             />
-            {thumbnailPreview && (
-              <div className="thumbnail-preview">
-                <img src={thumbnailPreview} alt="썸네일 미리보기" />
-                <button
-                  type="button"
-                  className="thumbnail-remove-btn"
-                  onClick={handleThumbnailRemove}
-                >
-                  ✕
-                </button>
-              </div>
-            )}
           </div>
         </section>
 
@@ -429,7 +302,7 @@ const CafePost = ({ cafeId, mode }: CafePostProps) => {
 
           <div className="form-row">
             <div className="form-group">
-              <label htmlFor="latitude">위도 *</label>
+              <label htmlFor="lat">위도 *</label>
               <input
                 type="number"
                 step="any"
@@ -443,7 +316,7 @@ const CafePost = ({ cafeId, mode }: CafePostProps) => {
             </div>
 
             <div className="form-group">
-              <label htmlFor="longitude">경도 *</label>
+              <label htmlFor="lon">경도 *</label>
               <input
                 type="number"
                 step="any"
@@ -515,86 +388,24 @@ const CafePost = ({ cafeId, mode }: CafePostProps) => {
         </section>
 
         <section className="form-section">
-          <div className="section-header">
-            <h2>메뉴</h2>
-            <button type="button" className="add-btn" onClick={handleAddMenu}>
-              + 메뉴 추가
-            </button>
-          </div>
-
-          <div className="menu-list">
-            {!formData.menus || formData.menus.length === 0 ? (
-              <p className="empty-message">등록된 메뉴가 없습니다.</p>
-            ) : (
-              formData.menus.map((menu, index) => (
-                <div key={index} className="menu-item">
-                  <input
-                    type="text"
-                    placeholder="메뉴명"
-                    value={menu.name}
-                    onChange={(e) =>
-                      handleMenuChange(index, "name", e.target.value)
-                    }
-                  />
-                  <input
-                    type="number"
-                    placeholder="가격"
-                    value={menu.price || ""}
-                    onChange={(e) =>
-                      handleMenuChange(index, "price", e.target.value)
-                    }
-                  />
-                  <button
-                    type="button"
-                    className="remove-btn"
-                    onClick={() => handleMenuRemove(index)}
-                  >
-                    삭제
-                  </button>
-                </div>
-              ))
-            )}
-          </div>
+          <MenuInput menus={formData.menus} onChange={handleMenusChange} />
         </section>
 
         <section className="form-section">
-          <h2>사진</h2>
-
-          <div className="form-group">
-            <label htmlFor="images">
-              사진 추가 (여러 장 선택 가능, 각 10MB 이하)
-            </label>
-            <input
-              type="file"
-              id="images"
-              accept="image/*"
-              multiple
-              onChange={handleImagesChange}
-            />
-          </div>
-
-          <div className="image-list">
-            {imagePreviews.length === 0 ? (
-              <p className="empty-message">등록된 사진이 없습니다.</p>
-            ) : (
-              imagePreviews.map((preview, index) => (
-                <div key={index} className="image-item">
-                  <img src={preview} alt={`사진 ${index + 1}`} />
-                  <button
-                    type="button"
-                    className="remove-btn"
-                    onClick={() => handleImageRemove(index)}
-                  >
-                    ✕
-                  </button>
-                </div>
-              ))
-            )}
-          </div>
+          <ImageUploader
+            onImagesChange={handleImagesChange}
+            initialPreviews={existingImages}
+            buttonText="파일 선택"
+          />
         </section>
 
         <div className="form-actions">
-          <button type="button" className="cancel-btn" disabled={isSubmitting}>
+          <button
+            type="button"
+            className="cancel-btn"
+            disabled={isSubmitting}
+            onClick={() => nav("/admin")}
+          >
             취소
           </button>
           <button type="submit" className="submit-btn" disabled={isSubmitting}>
