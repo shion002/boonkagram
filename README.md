@@ -15,7 +15,7 @@
 <br/>
 <br/>
 <img
-  src="https://github.com/shion002/project_thumb/blob/main/boonkagram_radius.jpg"
+  src="https://github.com/shion002/project_thumb/blob/main/boonkagram_radius.png"
 />
 
 <br/>
