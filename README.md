@@ -13,7 +13,6 @@
 ## 👀 미리보기
 
 <br/>
-<br/>
 <img
   src="https://github.com/shion002/project_thumb/blob/main/boonkagram_radius.png"
 />
