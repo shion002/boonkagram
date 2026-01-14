@@ -278,7 +278,9 @@ const RecommendList = () => {
                           <img src={ratingCalc(cafe.rating, 5)} alt="" />
                         </div>
                         <h5 className="recommendlist-listbox-list-contentbox-ratingbox-score">
-                          {cafe.rating.toFixed(1)}
+                          {cafe.rating != null
+                            ? Number(cafe.rating).toFixed(1)
+                            : "0.0"}
                         </h5>
                         <div className="recommndlist-listbox-list-contentbox-ratingbox-comment">
                           <p>리뷰</p>
